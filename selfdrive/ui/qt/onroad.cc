@@ -170,6 +170,28 @@ OnroadHud::OnroadHud(QWidget *parent) : QWidget(parent) {
   engage_img = QPixmap("../assets/img_chffr_wheel.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   dm_img = QPixmap("../assets/img_driver_face.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
+  // atom
+  img_traf_turn = QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_compass = QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_direction = QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_tire_pressure = QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+  img_speed_30 = QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_40 = QPixmap("../assets/addon/navigation/img_40_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_50= QPixmap("../assets/addon/navigation/img_50_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_60= QPixmap("../assets/addon/navigation/img_60_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_70= QPixmap("../assets/addon/navigation/img_70_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_80= QPixmap("../assets/addon/navigation/img_80_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_90= QPixmap("../assets/addon/navigation/img_90_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_100= QPixmap("../assets/addon/navigation/img_100_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_110= QPixmap("../assets/addon/navigation/img_110_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_var= QPixmap("../assets/addon/navigation/img_var_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_img_space= QPixmap("../assets/addon/navigation/img_space.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_car_left= QPixmap("../assets/addon/navigation/img_car_left.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_car_right= QPixmap("../assets/addon/navigation/img_car_right.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_bump= QPixmap("../assets/addon/navigation/img_speed_bump.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_bus_only= QPixmap("../assets/addon/navigation/img_bus_only.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
   connect(this, &OnroadHud::valueChanged, [=] { update(); });
 }
 
@@ -361,7 +383,7 @@ void NvgWindow::paintGL() {
 
     drawLaneLines(painter, s->scene);
 
-    if (s->scene.longitudinal_control) {
+    if (s->scene.longitudinal_control || 1) {
       auto leads = (*s->sm)["modelV2"].getModelV2().getLeadsV3();
       if (leads[0].getProb() > .5) {
         drawLead(painter, leads[0], s->scene.lead_vertices[0]);

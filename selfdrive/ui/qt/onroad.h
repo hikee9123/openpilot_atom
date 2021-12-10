@@ -42,6 +42,29 @@ private:
   bool hideDM = false;
   int status = STATUS_DISENGAGED;
 
+  // atom
+  QPixmap img_traf_turn;
+  QPixmap img_compass;
+  QPixmap img_direction;
+  QPixmap img_tire_pressure;
+
+  QPixmap mg_speed_30;
+  QPixmap img_speed_40;
+  QPixmap img_speed_50;
+  QPixmap img_speed_60;
+  QPixmap img_speed_70;
+  QPixmap img_speed_80;
+  QPixmap img_speed_90;
+  QPixmap img_speed_100;
+  QPixmap img_speed_110;
+  QPixmap img_speed_var;
+  QPixmap img_img_space;
+  QPixmap img_car_left;
+  QPixmap img_car_right;
+  QPixmap img_speed_bump;
+  QPixmap img_bus_only;
+
+
 signals:
   void valueChanged();
 };

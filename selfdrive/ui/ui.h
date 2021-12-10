@@ -26,6 +26,17 @@ typedef cereal::CarControl::HUDControl::AudibleAlert AudibleAlert;
 const float y_offset = Hardware::EON() ? 0.0 : 150.0;
 const float ZOOM = Hardware::EON() ? 2138.5 : 2912.8;
 
+typedef struct Rect {
+  int x, y, w, h;
+  int centerX() const { return x + w / 2; }
+  int centerY() const { return y + h / 2; }
+  int right() const { return x + w; }
+  int bottom() const { return y + h; }
+  bool ptInRect(int px, int py) const {
+    return px >= x && px < (x + w) && py >= y && py < (y + h);
+  }
+} Rect;
+
 struct Alert {
   QString text1;
   QString text2;
