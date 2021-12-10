@@ -48,7 +48,7 @@ private:
   QPixmap img_direction;
   QPixmap img_tire_pressure;
 
-  QPixmap mg_speed_30;
+  QPixmap img_speed_30;
   QPixmap img_speed_40;
   QPixmap img_speed_50;
   QPixmap img_speed_60;
