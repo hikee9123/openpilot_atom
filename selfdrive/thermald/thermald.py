@@ -260,9 +260,9 @@ def thermald_thread():
       # atom
       is_openpilot_view_enabled = params.get_bool("IsOpenpilotViewEnabled") # IsRHD
       if is_openpilot_view_enabled:
-        startup_conditions["ignition"] = True
-      elif startup_conditions["ignition"] == True:
-        startup_conditions["ignition"] = False
+        onroad_conditions["ignition"] = True
+      elif onroad_conditions["ignition"] == True:
+        onroad_conditions["ignition"] = False
 
     # these are expensive calls. update every 10s
     if (count % int(10. / DT_TRML)) == 0:
