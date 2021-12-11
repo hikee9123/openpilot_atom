@@ -618,7 +618,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     }
 
 
-    int img_size1 = 200;   // 472
+    int img_size1 = img_size;   // 472
     int img_xpos = 0 + bdr_s + 184 + 20;
     int img_ypos = 0 + bdr_s - 20;
 
@@ -666,8 +666,8 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     // 2. image
     if( traffic_sign  )
     {
-     // p.drawPixmap(img_xpos , img_ypos, *traffic_sign);
-      p.drawPixmap( QRect(img_xpos, img_ypos, img_size1, img_size1), *traffic_sign);
+      p.drawPixmap(img_xpos , img_ypos, *traffic_sign);
+     // p.drawPixmap( QRect(img_xpos, img_ypos, img_size1, img_size1), *traffic_sign);
 
       
     }
