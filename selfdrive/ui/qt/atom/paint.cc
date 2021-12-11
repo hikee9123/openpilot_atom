@@ -520,17 +520,17 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     int x = viz_tpms_x;// bdr_s + 80;
     int y = viz_tpms_y - h;// s->fb_h - bdr_s - h - 60;
 
-    const int margin = 10;
+    const int margin = 20;
 
    // drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
     p.drawPixmap(x+5 , y , img_tire_pressure);
 
     configFont( p, "Open Sans",  60, "SemiBold");
-    drawText( p, x-margin, y+45, get_tpms_text(fl), QColor(255,255,255,255), Qt::AlignRight  );
-    drawText( p, x+w+margin, y+45, get_tpms_text(fr), QColor(255,255,255,255), Qt::AlignLeft  );
+    drawText( p, x-margin, y+45, get_tpms_text(fl)  );
+    drawText( p, x+w+margin, y+45, get_tpms_text(fr)  );
 
-    drawText( p, x-margin, y+h-15, get_tpms_text(rl), QColor(255,255,255,255), Qt::AlignRight  );
-    drawText( p, x+w+margin, y+h-15, get_tpms_text(rr), QColor(255,255,255,255), Qt::AlignLeft  );
+    drawText( p, x-margin, y+h-15, get_tpms_text(rl)  );
+    drawText( p, x+w+margin, y+h-15, get_tpms_text(rr)  );
 }
 
 float  test = 0;
