@@ -7,7 +7,7 @@
 #include "selfdrive/common/timing.h"
 #include "selfdrive/ui/qt/util.h"
 
-
+#include "selfdrive/logcatd/traffic_sign.h"
 
 
 // OnroadHud
@@ -94,8 +94,9 @@ void OnPaint::paintEvent(QPaintEvent *event)
   //p.setBrush(QColor(0, 0, 0, 100));
   //p.drawRoundedRect(rc, 20, 20);
   //p.setPen(Qt::NoPen);
-  if( scene )
+  //if( scene )
     bb_ui_draw_UI( p );
+    ui_main_navi( p );
 }
 
 void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qColor ) 
@@ -529,7 +530,8 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 
     const int margin = 10;
 
-    drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
+   // drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
+    p.drawPixmap(x , y , img_tire_pressure);
 
     configFont( p, "Open Sans",  60, "SemiBold");
     drawText( p, x-margin, y+45, get_tpms_text(fl) );
@@ -589,10 +591,162 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//
+//  Nevi
 
 
 /*
 this is navigation code by OPKR, and thank you to the OPKR developer.
 I love OPKR code.
 */
+
+void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimit,  float speedLimitAheadDistance ) 
+{
+    int  nTrafficSign = int( map_sign );
+
+    QPixmap  *traffic_sign = NULL;
+
+    if( nTrafficSign == TS_BEND_ROAD ) traffic_sign = &img_traf_turn;  // 굽은도로
+    else if( nTrafficSign == TS_VARIABLE ) traffic_sign = &img_speed_var;  // 가변 단속. ( by opkr)
+    else if( nTrafficSign == TS_BUS_ONLY ) traffic_sign = &img_traf_turn;  // 버스전용차로단속
+    else if( nTrafficSign == TS_BUMP_ROAD ) traffic_sign = &img_speed_bump;  // 과속방지턱
+    else if( speedLimit <= 10 )  traffic_sign = NULL;
+    else if( speedLimit <= 30 )  traffic_sign = img_speed_30;
+    else if( speedLimit <= 40 )  traffic_sign = img_speed_40;
+    else if( speedLimit <= 50 )  traffic_sign = img_speed_50;
+    else if( speedLimit <= 60 )  traffic_sign = img_speed_60;
+    else if( speedLimit <= 70 )  traffic_sign = img_speed_70;
+    else if( speedLimit <= 80 )  traffic_sign = img_speed_80;
+    else if( speedLimit <= 90 )  traffic_sign = img_speed_90;
+    else if( speedLimit <= 100 )  traffic_sign = img_speed_100;
+    else if( speedLimit <= 110 )  traffic_sign = img_speed_110;
+
+  
+    if( nTrafficSign && traffic_sign == NULL )
+    {
+      traffic_sign = &img_img_space;
+    }
+
+
+    int img_size = 200;   // 472
+    int img_xpos = 0 + bdr_s + 184 + 20;
+    int img_ypos = 0 + bdr_s - 20;
+
+    QString   szSLD;
+    // 1. text  Distance
+    if( speedLimitAheadDistance >= 5 )
+    {
+       char  szSLD[50];
+      if( speedLimitAheadDistance >= 1000 )
+        szSLD.sprintf("%.1fkm", speedLimitAheadDistance * 0.001 );
+      else
+        szSLD.sprintf("%.0f", speedLimitAheadDistance );
+
+      int txt_size = int(img_size*0.8);
+      int txt_xpos = img_xpos + 20;  
+      int txt_ypos = img_ypos + img_size - 20;
+      const Rect rect = { txt_xpos, txt_ypos, txt_size, 60};
+      
+      QColor crFill = QColor(0,0,0,100); // nvgRGBA(255, 255, 255,100);
+      
+      float fpR[] = {255, 255, 0};
+      float fpG[] = {0, 255, 100};
+      float fpB[] = {0, 100, 255};
+      float xp[] = {100, 300, 500};
+      int N = sizeof(xp) / sizeof(xp[0]);
+      float x = speedLimitAheadDistance;
+      int nR = (int)interp( x, xp,  fpR, N);
+      int nG = (int)interp( x, xp,  fpG, N);
+      int nB = (int)interp( x, xp,  fpB, N);
+      
+      crFill = QColor(nR, nG, nB, 200);
+      
+    //  ui_fill_rect(s->vg, rect, crFill, 30.);
+     // ui_draw_rect(s->vg, rect, COLOR_WHITE_ALPHA(100), 5, 20.);        
+
+     // nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
+     // ui_text(s, rect.centerX(), rect.centerY()+15, szSLD, 40, COLOR_WHITE, "sans-bold");
+    }
+
+    // 2. image
+    if( traffic_sign  )
+    {
+      p.drawPixmap(img_xpos , img_ypos, *traffic_sign);
+    //  float img_alpha = 0.9f;
+     // ui_draw_image(s, {img_xpos, img_ypos, img_size, img_size}, traffic_sign, img_alpha);
+    }
+
+    const char  *szSign = NULL;
+
+    if( nTrafficSign == TS_VARIABLE ) szSign = "가변구간";
+    else if( nTrafficSign == TS_BEND_ROAD ) szSign = "굽은도로";
+    else if( nTrafficSign == TS_BUS_ONLY ) szSign = "버스전용차로";
+    else if( nTrafficSign == TS_BUMP_ROAD ) szSign = "과속방지턱";
+    else if( nTrafficSign == TS_CAMERA1 ) szSign = "신호위반";
+    else if( nTrafficSign == TS_CAMERA2_BUS ) szSign = "버스";
+    else if( nTrafficSign == TS_CAMERA3 ) szSign = "경찰차";
+    else if( nTrafficSign == TS_CAMERA4 ) szSign = "이동식";
+    else if( nTrafficSign == TS_CAMERA5 ) szSign = "카메라";  
+    else if( nTrafficSign == TS_INTERVAL ) szSign = "구간단속";
+    else  if( nTrafficSign == TS_CURVE_RIGHT ) szSign = "우측커브";
+    else if( nTrafficSign == TS_CURVE_LEFT ) szSign = "좌측커브";
+    else if( nTrafficSign == TS_RAIL_ROAD ) szSign = "철길건널목";
+    else if( nTrafficSign == TS_PARK_CRACKDOWN ) szSign = "주정차금지";
+    else if( nTrafficSign == TS_SCHOOL_ZONE1 ) szSign = "스쿨존#1";
+    else if( nTrafficSign == TS_SCHOOL_ZONE2 ) szSign = "스쿨존#2";
+    else if( nTrafficSign == TS_NARROW_ROAD ) szSign = "좁아지는도로";
+    else if( nTrafficSign == TS_OVERTRAK ) szSign = "추월금지구간";
+    else if( nTrafficSign == TS_SHOULDER ) szSign = "갓길단속";
+    else if( nTrafficSign == TS_TRAFFIC_INFO ) szSign = "교통정보";
+
+    if( szSign )
+    {
+      configFont( p, "Open Sans",  26, "SemiBold");
+
+      QString  strSign = QString(szSign);
+      drawText( p, img_xpos + int(img_size*0.5), img_ypos+25, strSign );
+    }
+}
+
+// const char * str = text.toStdString().c_str();
+
+void OnPaint::ui_draw_navi( QPainter &p ) 
+{
+ 
+  float speedLimit =  scene->liveNaviData.getSpeedLimit();  
+  float speedLimitAheadDistance =  scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
+  float map_sign = scene->liveNaviData.getSafetySign();
+  int   mapValid = 1;// scene->liveNaviData.getMapValid();
+
+
+  if( mapValid )
+  {
+    ui_draw_traffic_sign( p, map_sign, speedLimit, speedLimitAheadDistance );
+  }
+    
+  
+}
+
+void OnPaint::ui_draw_debug1( QPainter &p ) 
+{
+/*
+  nvgFontSize(s->vg, 38);
+  nvgTextAlign(s->vg, NVG_ALIGN_LEFT | NVG_ALIGN_BASELINE);
+  
+  const Rect rect = {bdr_s, 930, 1600, 1010};
+  ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);  
+  nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
+*/
+   p.drawText( 0, 30, QString(scene->alert.alertTextMsg1) );
+   p.drawText( 0, 970, QString(scene->alert.alertTextMsg2) );
+   p.drawText( 0, 1010, QString(scene->alert.alertTextMsg3) );
+
+}
+
+
+
+void OnPaint::ui_main_navi( QPainter &p ) 
+{
+  ui_draw_navi( p );
+
+  ui_draw_debug1( p );
+}

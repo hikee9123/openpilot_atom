@@ -55,7 +55,10 @@ private:
 // navi
 private:
   float  interp( float xv, float xp[], float fp[], int N);
-
+  void   ui_main_navi( QPainter &p );
+  void   ui_draw_debug1( QPainter &p );
+  void   ui_draw_navi( QPainter &p );
+  void   ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimit,  float speedLimitAheadDistance );
 
 // kegmen
 private:
