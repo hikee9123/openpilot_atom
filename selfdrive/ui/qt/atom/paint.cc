@@ -510,9 +510,9 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     auto car_state = (*state->sm)["carState"].getCarState();
     auto tpms = car_state.getTpms();
 
-    const float fl = tpms.getFl();
-    const float fr = tpms.getFr();
-    const float rl = tpms.getRl();
+    const float fl = 35;// tpms.getFl();
+    const float fr = 36;// tpms.getFr();
+    const float rl = 37; // tpms.getRl();
     const float rr = tpms.getRr();
 
     const int w = 58;
@@ -538,7 +538,7 @@ float  test = 0;
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
  // auto   gps_ext = scene->gpsLocationExternal;
-  float  bearingUblox = test; // gps_ext.getBearingDeg();
+  float  bearingUblox = 10 + test; // gps_ext.getBearingDeg();
 
   
   test += 0.1;
