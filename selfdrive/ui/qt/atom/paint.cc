@@ -618,7 +618,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     }
 
 
-    int img_size = 200;   // 472
+    int img_size1 = 200;   // 472
     int img_xpos = 0 + bdr_s + 184 + 20;
     int img_ypos = 0 + bdr_s - 20;
 
@@ -631,9 +631,9 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       else
         szSLD.sprintf("%.0f", speedLimitAheadDistance );
 
-      int txt_size = int(img_size*0.8);
+      int txt_size = int(img_size1*0.8);
       int txt_xpos = img_xpos + 20;  
-      int txt_ypos = img_ypos + img_size - 20;
+      int txt_ypos = img_ypos + img_size1 - 20;
       const Rect rect = { txt_xpos, txt_ypos, txt_size, 60};
       
       QColor crFill = QColor(0,0,0,100); // nvgRGBA(255, 255, 255,100);
@@ -662,7 +662,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     {
       p.drawPixmap(img_xpos , img_ypos, *traffic_sign);
     //  float img_alpha = 0.9f;
-     // ui_draw_image(s, {img_xpos, img_ypos, img_size, img_size}, traffic_sign, img_alpha);
+     // ui_draw_image(s, {img_xpos, img_ypos, img_size1, img_size1}, traffic_sign, img_alpha);
     }
 
     const char  *szSign = NULL;
@@ -693,7 +693,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       configFont( p, "Open Sans",  26, "SemiBold");
 
       QString  strSign = QString(szSign);
-      drawText( p, img_xpos + int(img_size*0.5), img_ypos+25, strSign );
+      drawText( p, img_xpos + int(img_size1*0.5), img_ypos+25, strSign );
     }
 }
 
