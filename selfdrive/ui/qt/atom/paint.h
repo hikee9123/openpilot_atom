@@ -11,6 +11,10 @@
 class OnPaint : public QWidget 
 {
   Q_OBJECT
+  Q_PROPERTY(int status MEMBER status NOTIFY valueChanged);
+  Q_PROPERTY(float altitudeUblox MEMBER altitudeUblox NOTIFY valueChanged);
+  Q_PROPERTY(float gpsAccuracyUblox MEMBER gpsAccuracyUblox NOTIFY valueChanged);
+
 
 public:
   explicit OnPaint(QWidget *parent);
@@ -25,12 +29,18 @@ private:
   UIState  *state;
   UIScene  *scene;
 
+
+  int  status = 0;
+  float altitudeUblox =0;
+  float gpsAccuracyUblox =0;
+  int  m_test_cnt;
+
 private:
   //const int radius = 192;
   const int img_size = 200;// (radius / 2) * 1.5;
   const int img_size_compass = 250;
 
-  float  m_test_cnt;
+  
 
   QPixmap img_traf_turn;
   QPixmap img_compass;
@@ -82,4 +92,7 @@ private:
   void  bb_draw_compass(QPainter &p, int compass_x, int compass_y );
 
   void  bb_ui_draw_UI(QPainter &p);
+
+signals:
+  void valueChanged();  
 };

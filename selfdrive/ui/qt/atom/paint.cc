@@ -37,11 +37,23 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
   img_car_right= QPixmap("../assets/addon/navigation/img_car_right.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_bump= QPixmap("../assets/addon/navigation/img_speed_bump.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_bus_only= QPixmap("../assets/addon/navigation/img_bus_only.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+  connect(this, &OnPaint::valueChanged, [=] { update(); });
 }
 
 void OnPaint::updateState(const UIState &s)
 {
-   //scene = s;
+    auto gps_ext = s.scene.gpsLocationExternal;
+    float  gpsAccuracyUblox = gps_ext.getAccuracy();
+    float  altitudeUblox = gps_ext.getAltitude(); 
+
+    m_test_cnt += 1;
+    setProperty("status", m_test_cnt );
+
+
+
+    setProperty("gpsAccuracyUblox", gpsAccuracyUblox );
+    setProperty("altitudeUblox", gpsAccuracyUblox );
 }
 
 
@@ -103,41 +115,6 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
 }
 
 
-/*
-void OnPaint::drawIcon(QPainter &p, int x, int y, QPixmap &img, QBrush bg, float opacity) 
-{
-  p.setPen(Qt::NoPen);
-  p.setBrush(bg);
-  p.drawEllipse(x - radius / 2, y - radius / 2, radius, radius);
-  p.setOpacity(opacity);
-  p.drawPixmap(x - img_size / 2, y - img_size / 2, img);
-}
-*/
-///////////////////////////////////////////////////////////////////////////////
-//
-//
-
-/*
-void OnPaint::ui_draw_circle_image_rotation(const UIState *s, int center_x, int center_y, int radius, const char *image, QColor color, float img_alpha, float angleSteers)
-{
-  const int img_size = radius * 1.5;
-  float img_rotation =  angleSteers/180*3.141592;
-  int ct_pos = -radius * 0.75;
-
-  nvgBeginPath(s->vg);
-  nvgCircle(s->vg, center_x, center_y + (bdr_s+7), radius);
-  nvgFillColor(s->vg, color);
-  nvgFill(s->vg);
-  //ui_draw_image(s, {center_x - (img_size / 2), center_y - (img_size / 2), img_size, img_size}, image, img_alpha);
-
-  nvgSave( s->vg );
-  nvgTranslate(s->vg, center_x, (center_y + (bdr_s*1.5)));
-  nvgRotate(s->vg, -img_rotation);  
-
-  ui_draw_image(s, {ct_pos, ct_pos, img_size, img_size}, image, img_alpha);
-  nvgRestore(s->vg); 
-}
-*/
 
 //BB START: functions added for the display of various items
 int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QString &bb_uom, const QString &bb_label,
@@ -537,28 +514,17 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
- // auto   gps_ext = scene->gpsLocationExternal;
-  float  bearingUblox = -45 + m_test_cnt; // gps_ext.getBearingDeg();
+  auto   gps_ext = scene->gpsLocationExternal;
+  float  bearingUblox = gps_ext.getBearingDeg();
 
   int   size =  img_size_compass * 0.5;
-  
-  m_test_cnt += 1;
-  if( m_test_cnt > 360 )
-       m_test_cnt = 0;
 
     p.save();
     p.setOpacity(0.8);
     p.translate( compass_x+size, compass_y+size);
-     p.rotate( -bearingUblox );
-    //p.setPen( QColor(0, 0, 0, 100) ); 
-
-    //QMatrix rm;
-    //rm.rotate( -bearingUblox );
-    //img_direction = img_direction.transformed(rm);
-
+    p.rotate( -bearingUblox );
     p.drawPixmap( -size , -size, img_direction );
     p.restore();
-
 
   
   p.drawPixmap(compass_x , compass_y, img_compass );
@@ -566,19 +532,6 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
   QString szSLD;
   szSLD.sprintf( "%.1f", bearingUblox );
   p.drawText( compass_x, compass_y, szSLD );
-
- // const int radius = 130;// 85 + 40;
- // ui_draw_circle_image_rotation(s, compass_x, compass_y, radius, "direction", QColor(0, 0, 0, 0), 0.7f, -bearingUblox);
- // ui_draw_circle_image_rotation(s, compass_x, compass_y, radius, "compass", QColor(0, 0, 0, 0), 0.8f);
- /*
-QPixmap input("YourImage.png");
-QImage image(input.size(), QImage::Format_ARGB32_Premultiplied); //Image with given size and format.
-image.fill(Qt::transparent); //fills with transparent
-QPainter p(&image);
-p.setOpacity(0.2); // set opacity from 0.0 to 1.0, where 0.0 is fully transparent and 1.0 is fully opaque.
-p.drawPixmap(0, 0, input); // given pixmap into the paint device.
-p.end();
-*/
 }
 
 
