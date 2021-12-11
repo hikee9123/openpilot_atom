@@ -522,7 +522,7 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     const int margin = 10;
 
    // drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
-    p.drawPixmap(x+10 , y , img_tire_pressure);
+    p.drawPixmap(x+5 , y , img_tire_pressure);
 
     configFont( p, "Open Sans",  60, "SemiBold");
     drawText( p, x-margin, y+45, get_tpms_text(fl) );
@@ -732,9 +732,9 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);  
   nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
 */
-  QString text1 = "QString::fromStdString(scene->alert.alertTextMsg1)";
-  QString text2 = "QString::fromStdString(scene->alert.alertTextMsg2)";
-  QString text3 = "QString::fromStdString(scene->alert.alertTextMsg3)";
+  QString text1 = QString::fromStdString(scene->alert.alertTextMsg1);
+  QString text2 = QString::fromStdString(scene->alert.alertTextMsg2);
+  QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
 
 
   configFont( p, "Open Sans",  30, "SemiBold");

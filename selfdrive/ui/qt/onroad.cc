@@ -231,11 +231,29 @@ void OnroadHud::paintEvent(QPaintEvent *event) {
   }
 
   // current speed
-  configFont(p, "Open Sans", 176, "Bold");
-  drawText(p, rect().center().x(), 210, speed);
-  configFont(p, "Open Sans", 66, "Regular");
-  drawText(p, rect().center().x(), 290, speedUnit, 200);
+  drawCurrentSpeed( p, rect().center().x(), 210 );
+  /*
+  configFont(p, "Open Sans", 230, "Bold");
+  int x = rect().center().x();
+  int y = 210;
+  QColor  val_color = QColor(255, 255, 255, 255);
+  bool  brakePress = scene->car_state.getBrakePressed();
+  bool  brakeLights = scene->car_state.getBrakeLightsDEPRECATED();
+  if( brakePress  ) val_color = QColor(255, 0, 0, 255);;
+  else if( brakeLights ) val_color = QColor(201, 34, 49, 100);   
 
+
+  QFontMetrics fm(p.font());
+  QRect init_rect = fm.boundingRect(speed);
+  QRect real_rect = fm.boundingRect(init_rect, 0, speed);
+  real_rect.moveCenter({x, y - real_rect.height() / 2});
+  p.setPen( val_color );
+  p.drawText(real_rect.x(), real_rect.bottom(), speed);
+
+  //drawText(p, rect().center().x(), 210, speed);
+  configFont(p, "Open Sans", 50, "Regular");
+  drawText(p, rect().center().x(), 290, speedUnit, 200);
+  */
   // engage-ability icon
   if (engageable) {
     drawIcon(p, rect().right() - radius / 2 - bdr_s * 1, radius / 2 + int(bdr_s * 1.0),
@@ -248,6 +266,30 @@ void OnroadHud::paintEvent(QPaintEvent *event) {
              dm_img, QColor(0, 0, 0, 70), dmActive ? 1.0 : 0.2);
   }
 }
+
+void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y) 
+{
+  configFont(p, "Open Sans", 230, "Bold");
+
+  QColor  val_color = QColor(255, 255, 255, 255);
+  bool  brakePress = scene->car_state.getBrakePressed();
+  bool  brakeLights = scene->car_state.getBrakeLightsDEPRECATED();
+  if( brakePress  ) val_color = QColor(255, 0, 0, 255);;
+  else if( brakeLights ) val_color = QColor(201, 34, 49, 100);   
+
+
+  QFontMetrics fm(p.font());
+  QRect init_rect = fm.boundingRect(speed);
+  QRect real_rect = fm.boundingRect(init_rect, 0, speed);
+  real_rect.moveCenter({x, y - real_rect.height() / 2});
+  p.setPen( val_color );
+  p.drawText(real_rect.x(), real_rect.bottom(), speed);
+
+  //drawText(p, rect().center().x(), 210, speed);
+  configFont(p, "Open Sans", 50, "Regular");
+  drawText(p, x, y+80, speedUnit, 200);
+}
+
 
 void OnroadHud::drawText(QPainter &p, int x, int y, const QString &text, int alpha) {
   QFontMetrics fm(p.font());
