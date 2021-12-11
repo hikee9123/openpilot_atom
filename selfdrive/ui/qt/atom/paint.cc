@@ -18,7 +18,7 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 
 void OnPaint::updateState(const UIState &s)
 {
-   scene = &s;
+   scene = s;
 }
 
 void OnPaint::paintEvent(QPaintEvent *event) 
@@ -82,8 +82,7 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
     QColor bb_valueColor, QColor bb_labelColor, QColor bb_uomColor,
     int bb_valueFontSize, int bb_labelFontSize, int bb_uomFontSize )
 {
-   if( p == NULL ) return 0;
-
+ 
   //nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   int dx = 0;
   int nLen = bb_uom.length();
@@ -254,7 +253,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
 
 
-  auto radar_state = (*s->sm)["radarState"].getRadarState();  // radar
+  auto radar_state = (*scene->sm)["radarState"].getRadarState();  // radar
   auto lead_radar = radar_state.getLeadOne();
 
 
@@ -282,7 +281,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
        val_str = "-";
     }
 
-    auto lead_cam = (*s->sm)["modelV2"].getModelV2().getLeadsV3()[0];  // camera
+    auto lead_cam = (*scene->sm)["modelV2"].getModelV2().getLeadsV3()[0];  // camera
     if (lead_cam.getProb() > 0.1) {
       float d_rel1 = lead_cam.getX()[0];
 
@@ -462,7 +461,6 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 
 void OnPaint::bb_ui_draw_UI(QPainter &p)
 {
-  UIScene &scene = s->scene;
   const int bb_dml_w = 180;
   const int bb_dml_x = (0 + bdr_s);
   const int bb_dml_y = (0 + bdr_s) + 220;
@@ -472,15 +470,15 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   const int bb_dmr_y = (0 + bdr_s) + 220;
 
   // 1. kegman ui
-  bb_ui_draw_measures_left(s, bb_dml_x, bb_dml_y, bb_dml_w);
-  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y, bb_dmr_w);
+  bb_ui_draw_measures_left(p, bb_dml_x, bb_dml_y, bb_dml_w);
+  bb_ui_draw_measures_right(p, bb_dmr_x, bb_dmr_y, bb_dmr_w);
 
   // 2. tpms
   if( true )
   {
     int viz_tpms_x = s->fb_w - bb_dmr_w / 2 - 60;
     int viz_tpms_y = s->fb_h - bdr_s - 220;  
-    bb_draw_tpms( s, viz_tpms_x, viz_tpms_y);
+    bb_draw_tpms( p, viz_tpms_x, viz_tpms_y);
   }
 
   // 3. compass
@@ -488,7 +486,7 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   {
     const int compass_x = s->fb_w / 2 - 20;
     const int compass_y = s->fb_h - 40;
-    bb_draw_compass( s, compass_x, compass_y );
+    bb_draw_compass( p, compass_x, compass_y );
   }
 }
 //BB END: functions added for the display of various items
