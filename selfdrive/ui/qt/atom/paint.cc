@@ -44,16 +44,16 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 void OnPaint::updateState(const UIState &s)
 {
     auto gps_ext = s.scene.gpsLocationExternal;
-    float  gpsAccuracyUblox = gps_ext.getAccuracy();
-    float  altitudeUblox = gps_ext.getAltitude(); 
+    float  _gpsAccuracyUblox = gps_ext.getAccuracy();
+    float  _altitudeUblox = gps_ext.getAltitude(); 
 
     m_test_cnt += 1;
     setProperty("status", m_test_cnt );
 
 
 
-    setProperty("gpsAccuracyUblox", gpsAccuracyUblox );
-    setProperty("altitudeUblox", gpsAccuracyUblox );
+    setProperty("gpsAccuracyUblox", _gpsAccuracyUblox );
+    setProperty("altitudeUblox", _altitudeUblox );
 }
 
 
@@ -255,9 +255,9 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
   //add grey panda GPS accuracy
   if (true) {
-    auto gps_ext = scene->gpsLocationExternal;
-    float  gpsAccuracyUblox = gps_ext.getAccuracy();
-    float  altitudeUblox = gps_ext.getAltitude();
+   // auto gps_ext = scene->gpsLocationExternal;
+    //float  gpsAccuracyUblox = gps_ext.getAccuracy();
+    //float  altitudeUblox = gps_ext.getAltitude();
 
 
 
@@ -530,7 +530,7 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
   p.drawPixmap(compass_x , compass_y, img_compass );
 
   QString szSLD;
-  szSLD.sprintf( "%.1f", bearingUblox );
+  szSLD.sprintf( "%d", m_test_cnt );
   p.drawText( compass_x, compass_y, szSLD );
 }
 
