@@ -18,8 +18,8 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 
 
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size_compass, img_size_compass, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size_compass, img_size_compass, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(110, 110, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
   img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -510,9 +510,9 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     auto car_state = (*state->sm)["carState"].getCarState();
     auto tpms = car_state.getTpms();
 
-    const float fl = 35;// tpms.getFl();
-    const float fr = 36;// tpms.getFr();
-    const float rl = 37; // tpms.getRl();
+    const float fl = tpms.getFl();
+    const float fr = tpms.getFr();
+    const float rl = tpms.getRl();
     const float rr = tpms.getRr();
 
     const int w = 58;
@@ -533,21 +533,22 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     drawText( p, x+w+margin, y+h-15, get_tpms_text(rr)  );
 }
 
-static float  test;
+
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
  // auto   gps_ext = scene->gpsLocationExternal;
-  float  bearingUblox = -10 + test; // gps_ext.getBearingDeg();
+  float  bearingUblox = -45 + m_test_cnt; // gps_ext.getBearingDeg();
 
+  int   size =  img_size_compass * 0.5;
   
-  test += 1;
-  if( test > 360 )
-       test = 0;
+  m_test_cnt += 1;
+  if( m_test_cnt > 360 )
+       m_test_cnt = 0;
 
     p.save();
     p.setOpacity(0.8);     
-    p.translate( compass_x, compass_y);
+    p.translate( compass_x-size, compass_y-size);
      p.rotate( -bearingUblox );
     //p.setPen( QColor(0, 0, 0, 100) ); 
 
@@ -555,7 +556,7 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
     //rm.rotate( -bearingUblox );
     //img_direction = img_direction.transformed(rm);
 
-    p.drawPixmap(0 , 0, img_direction );
+    p.drawPixmap( size , size, img_direction );
     p.restore();
 
 
