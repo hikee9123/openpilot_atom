@@ -536,7 +536,7 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
-  auto   gps_ext = scene.gpsLocationExternal;
+  auto   gps_ext = scene->gpsLocationExternal;
   float  bearingUblox = gps_ext.getBearingDeg();
 
 
