@@ -267,7 +267,7 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   if( brakePress  ) val_color = QColor(255, 0, 0, 255);
   else if( brakeLights ) val_color = QColor(201, 34, 49, 100);   
 
-  configFont(p, "Open Sans", 230, "Bold");
+  configFont(p, "Open Sans", 235, "Bold");
   QFontMetrics fm(p.font());
   QRect init_rect = fm.boundingRect(speed);
   QRect real_rect = fm.boundingRect(init_rect, 0, speed);
@@ -276,7 +276,7 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   p.drawText(real_rect.x(), real_rect.bottom(), speed);
 
 
-  configFont(p, "Open Sans", 50, "Regular");
+  configFont(p, "Open Sans", 30, "Regular");
   drawText(p, x, y+80, speedUnit, 200);
 }
 
