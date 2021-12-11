@@ -313,7 +313,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
 
   QRect rc( bb_x, bb_y, bb_w, bb_h);
-  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 5));
+  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
   p.setBrush(QColor(0, 0, 0, 100));
   p.drawRoundedRect(rc, 20, 20);
   p.setPen(Qt::NoPen);
@@ -476,7 +476,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   bb_h += 20;
 
   QRect rc( bb_x, bb_y, bb_w, bb_h);
-  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 5));
+  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
   p.setBrush(QColor(0, 0, 0, 100));
   p.drawRoundedRect(rc, 20, 20);
   p.setPen(Qt::NoPen);  
@@ -522,7 +522,7 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     const int margin = 10;
 
    // drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
-    p.drawPixmap(x , y , img_tire_pressure);
+    p.drawPixmap(x+10 , y , img_tire_pressure);
 
     configFont( p, "Open Sans",  60, "SemiBold");
     drawText( p, x-margin, y+45, get_tpms_text(fl) );
@@ -736,9 +736,14 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   QString text2 = "QString::fromStdString(scene->alert.alertTextMsg2)";
   QString text3 = "QString::fromStdString(scene->alert.alertTextMsg3)";
 
-   p.drawText( 0, 30, text1 );
-   p.drawText( 0, 970, text2 );
-   p.drawText( 0, 1010, text3 );
+
+  configFont( p, "Open Sans",  30, "SemiBold");
+  drawText( p, 0, 30, text1 );
+  drawText( p, 0, 970, text2 );
+  drawText( p, 0, 1010, text3 );
+
+  // p.drawText( 0, 30, text1 );
+
 }
 
 
