@@ -28,7 +28,7 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
   img_speed_60= QPixmap("../assets/addon/navigation/img_60_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_70= QPixmap("../assets/addon/navigation/img_70_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_80= QPixmap("../assets/addon/navigation/img_80_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_speed_90= QPixmap("../assets/addon/navigation/img_90_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);,
+  img_speed_90= QPixmap("../assets/addon/navigation/img_90_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_100= QPixmap("../assets/addon/navigation/img_100_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_110= QPixmap("../assets/addon/navigation/img_110_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_var= QPixmap("../assets/addon/navigation/img_var_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
