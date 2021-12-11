@@ -537,7 +537,7 @@ float  test = 0;
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
-  auto   gps_ext = scene->gpsLocationExternal;
+ // auto   gps_ext = scene->gpsLocationExternal;
   float  bearingUblox = test; // gps_ext.getBearingDeg();
 
   
@@ -546,10 +546,11 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
        test = 0;
 
     p.save();
+    p.setOpacity(0.8);     
     p.translate( compass_x, compass_y);
     p.rotate( -bearingUblox );
     //p.setPen( QColor(0, 0, 0, 100) ); 
-    p.setOpacity(0.8); 
+
     p.drawPixmap(0 , 0, img_direction );
     p.restore();
 
