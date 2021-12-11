@@ -420,7 +420,7 @@ QString OnPaint::get_tpms_text(float tpms)
 void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 {
     //const UIScene *scene = &s->scene;
-   // auto car_state = (*state->sm)["carState"].getCarState();
+    auto car_state = (*state->sm)["carState"].getCarState();
     auto tpms = car_state.getTpms();
 
     const float fl = tpms.getFl();
@@ -467,7 +467,7 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   const int bb_dml_y = (0 + bdr_s) + 220;
 
   const int bb_dmr_w = 180;
-  const int bb_dmr_x = 0 + s->fb_w - bb_dmr_w - bdr_s;
+  const int bb_dmr_x = 0 + state->fb_w - bb_dmr_w - bdr_s;
   const int bb_dmr_y = (0 + bdr_s) + 220;
 
   // 1. kegman ui
@@ -477,16 +477,16 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   // 2. tpms
   if( true )
   {
-    int viz_tpms_x = s->fb_w - bb_dmr_w / 2 - 60;
-    int viz_tpms_y = s->fb_h - bdr_s - 220;  
+    int viz_tpms_x = state->fb_w - bb_dmr_w / 2 - 60;
+    int viz_tpms_y = state->fb_h - bdr_s - 220;  
     bb_draw_tpms( p, viz_tpms_x, viz_tpms_y);
   }
 
   // 3. compass
   if( 0 )
   {
-    const int compass_x = s->fb_w / 2 - 20;
-    const int compass_y = s->fb_h - 40;
+    const int compass_x = state->fb_w / 2 - 20;
+    const int compass_y = state->fb_h - 40;
     bb_draw_compass( p, compass_x, compass_y );
   }
 }
