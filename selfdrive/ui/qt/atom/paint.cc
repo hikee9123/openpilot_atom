@@ -13,12 +13,12 @@
 // OnroadHud
 OnPaint::OnPaint(QWidget *parent) : QWidget(parent) 
 {
-   scene = NULL;
+   scene = &QUIState::ui_state.scene;
 }
 
 void OnPaint::updateState(const UIState &s)
 {
-   scene = s;
+   //scene = s;
 }
 
 void OnPaint::paintEvent(QPaintEvent *event) 
