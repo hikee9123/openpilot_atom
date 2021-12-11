@@ -169,7 +169,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
        // temp is alway in C * 10
       val_str.sprintf("%.1f", gpuTemp );
-      uom_str.sprintf("%d", memTemp);       
+      uom_str.sprintf("%.1f", memTemp);       
       bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "GPU TEMP",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -192,7 +192,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
     }
     // temp is alway in C * 1000
     val_str.sprintf("%.1f", batteryTemp );
-    uom_str.sprintf("", "");        
+    uom_str = "";        
     bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "BAT TEMP",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,

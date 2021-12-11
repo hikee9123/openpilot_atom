@@ -21,7 +21,7 @@ private:
   void drawText(QPainter &p, int x, int y, const QString &text, QColor qColor = QColor(255,255,255,255) );
   
 private:
-  UIScene  *scene;
+  UIState  *scene;
 
 private:
   //void ui_draw_circle_image_rotation(const UIState *s, int center_x, int center_y, int radius, const char *image, NVGcolor color, float img_alpha, float angleSteers = 0);
