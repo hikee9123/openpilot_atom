@@ -631,10 +631,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       else
         szSLD.sprintf("%.0f", speedLimitAheadDistance );
 
-      int txt_size = int(img_size1*0.8);
-      int txt_xpos = img_xpos + 20;  
-      int txt_ypos = img_ypos + img_size1 - 20;
-      const Rect rect = { txt_xpos, txt_ypos, txt_size, 60};
+
       
       QColor crFill = QColor(0,0,0,100); // nvgRGBA(255, 255, 255,100);
       
@@ -650,6 +647,12 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       
       crFill = QColor(nR, nG, nB, 200);
       
+/*
+      int txt_size = int(img_size1*0.8);
+      int txt_xpos = img_xpos + 20;  
+      int txt_ypos = img_ypos + img_size1 - 20;
+      const Rect rect = { txt_xpos, txt_ypos, txt_size, 60};  
+      */
     //  ui_fill_rect(s->vg, rect, crFill, 30.);
      // ui_draw_rect(s->vg, rect, COLOR_WHITE_ALPHA(100), 5, 20.);        
 
@@ -703,7 +706,7 @@ void OnPaint::ui_draw_navi( QPainter &p )
 {
  
   float speedLimit =  scene->liveNaviData.getSpeedLimit();  
-  float speedLimitAheadDistance =  scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
+  float speedLimitAheadDistance = 100;// scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
   float map_sign = scene->liveNaviData.getSafetySign();
   int   mapValid = 1;// scene->liveNaviData.getMapValid();
 
