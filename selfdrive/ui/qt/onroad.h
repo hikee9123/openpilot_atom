@@ -6,6 +6,7 @@
 #include "selfdrive/ui/qt/widgets/cameraview.h"
 #include "selfdrive/ui/ui.h"
 
+#include "selfdrive/ui/qt/atom/paint.h"
 
 // ***** onroad widgets *****
 

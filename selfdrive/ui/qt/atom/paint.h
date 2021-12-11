@@ -13,7 +13,7 @@ class OnPaint : public QWidget
   Q_OBJECT
 
 public:
-  OnPaint(QWidget *parent);
+  explicit OnPaint(QWidget *parent);
 
 
 private:
