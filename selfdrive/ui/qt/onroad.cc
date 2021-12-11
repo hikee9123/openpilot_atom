@@ -12,6 +12,8 @@
 #endif
 
 
+#include "selfdrive/ui/qt/atom/paint.h"
+
 
 OnroadWindow::OnroadWindow(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *main_layout  = new QVBoxLayout(this);
