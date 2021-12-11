@@ -46,7 +46,7 @@ private:
   QPixmap img_car_right;
   QPixmap img_speed_bump;
   QPixmap img_bus_only;
-}
+
 
 private:
   //void ui_draw_circle_image_rotation(const UIState *s, int center_x, int center_y, int radius, const char *image, NVGcolor color, float img_alpha, float angleSteers = 0);
