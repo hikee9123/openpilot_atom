@@ -14,7 +14,7 @@ class OnPaint : public QWidget
   Q_PROPERTY(int status MEMBER status NOTIFY valueChanged);
   Q_PROPERTY(float altitudeUblox MEMBER altitudeUblox NOTIFY valueChanged);
   Q_PROPERTY(float gpsAccuracyUblox MEMBER gpsAccuracyUblox NOTIFY valueChanged);
-
+  Q_PROPERTY(float bearingUblox MEMBER bearingUblox NOTIFY valueChanged);
 
 public:
   explicit OnPaint(QWidget *parent);
@@ -33,6 +33,7 @@ private:
   int  status = 0;
   float altitudeUblox =0;
   float gpsAccuracyUblox =0;
+  float bearingUblox = 0;
   int  m_test_cnt;
 
 private:

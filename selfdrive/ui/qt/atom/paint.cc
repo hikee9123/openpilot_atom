@@ -47,13 +47,18 @@ void OnPaint::updateState(const UIState &s)
     float  _gpsAccuracyUblox = gps_ext.getAccuracy();
     float  _altitudeUblox = gps_ext.getAltitude(); 
 
-    m_test_cnt += 1;
-    setProperty("status", m_test_cnt );
+    auto   gps_ext = s.scene.gpsLocationExternal;
+    float  _bearingUblox = gps_ext.getBearingDeg();
+
+
+   // m_test_cnt += 1;
+   // setProperty("status", m_test_cnt );
 
 
 
     setProperty("gpsAccuracyUblox", _gpsAccuracyUblox );
     setProperty("altitudeUblox", _altitudeUblox );
+    setProperty("bearingUblox", _bearingUblox );
 }
 
 
@@ -255,11 +260,6 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
   //add grey panda GPS accuracy
   if (true) {
-   // auto gps_ext = scene->gpsLocationExternal;
-    //float  gpsAccuracyUblox = gps_ext.getAccuracy();
-    //float  altitudeUblox = gps_ext.getAltitude();
-
-
 
     QColor val_color = QColor(255, 255, 255, 200);
     //show red/orange if gps accuracy is low
@@ -514,8 +514,8 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
-  auto   gps_ext = scene->gpsLocationExternal;
-  float  bearingUblox = gps_ext.getBearingDeg();
+ // auto   gps_ext = scene->gpsLocationExternal;
+ // float  bearingUblox = gps_ext.getBearingDeg();
 
   int   size =  img_size_compass * 0.5;
 
@@ -528,10 +528,6 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 
   
   p.drawPixmap(compass_x , compass_y, img_compass );
-
-  QString szSLD;
-  szSLD.sprintf( "%d", m_test_cnt );
-  p.drawText( compass_x, compass_y, szSLD );
 }
 
 
