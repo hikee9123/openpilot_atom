@@ -544,7 +544,7 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
     p.translate( compass_x, compass_y);
     p.rotate( -bearingUblox );
     //p.setPen( QColor(0, 0, 0, 100) ); 
-    p.setOpacity(0.2); 
+    p.setOpacity(0.8); 
     p.drawPixmap(0 , 0, img_direction );
     p.restore();
 
@@ -555,7 +555,15 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
  // const int radius = 130;// 85 + 40;
  // ui_draw_circle_image_rotation(s, compass_x, compass_y, radius, "direction", QColor(0, 0, 0, 0), 0.7f, -bearingUblox);
  // ui_draw_circle_image_rotation(s, compass_x, compass_y, radius, "compass", QColor(0, 0, 0, 0), 0.8f);
-
+ /*
+QPixmap input("YourImage.png");
+QImage image(input.size(), QImage::Format_ARGB32_Premultiplied); //Image with given size and format.
+image.fill(Qt::transparent); //fills with transparent
+QPainter p(&image);
+p.setOpacity(0.2); // set opacity from 0.0 to 1.0, where 0.0 is fully transparent and 1.0 is fully opaque.
+p.drawPixmap(0, 0, input); // given pixmap into the paint device.
+p.end();
+*/
 }
 
 
@@ -584,8 +592,8 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   // 3. compass
   if( true )
   {
-    const int compass_x = state->fb_w / 2 - 20;
-    const int compass_y = state->fb_h - 80;
+    const int compass_x = state->fb_w / 2 - 100;
+    const int compass_y = state->fb_h - 100;
     bb_draw_compass( p, compass_x, compass_y );
   }
 }
