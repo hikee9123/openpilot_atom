@@ -533,12 +533,10 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     drawText( p, x+w+margin, y+h-15, get_tpms_text(rr), QColor(255,255,255,255), Qt::AlignLeft  );
 }
 
-
+float  test = 0;
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
-  static  float  test;
-
   auto   gps_ext = scene->gpsLocationExternal;
   float  bearingUblox = test; // gps_ext.getBearingDeg();
 
