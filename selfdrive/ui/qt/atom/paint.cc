@@ -541,19 +541,19 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
   float  bearingUblox = 10 + test; // gps_ext.getBearingDeg();
 
   
-  test += 0.1;
+  test += 1;
   if( test > 360 )
        test = 0;
 
     p.save();
     p.setOpacity(0.8);     
     p.translate( compass_x, compass_y);
-   // p.rotate( -bearingUblox );
+     p.rotate( -bearingUblox );
     //p.setPen( QColor(0, 0, 0, 100) ); 
 
-    QMatrix rm;
-    rm.rotate( -bearingUblox );
-    img_direction = img_direction.transformed(rm);
+    //QMatrix rm;
+    //rm.rotate( -bearingUblox );
+    //img_direction = img_direction.transformed(rm);
 
     p.drawPixmap(0 , 0, img_direction );
     p.restore();
@@ -561,6 +561,11 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 
   
   p.drawPixmap(compass_x , compass_y, img_compass );
+
+  QString szSLD;
+
+  szSLD.sprintf( "%.1f",test );
+  p.drawText( compass_x, compass_y, szSLD );
 
  // const int radius = 130;// 85 + 40;
  // ui_draw_circle_image_rotation(s, compass_x, compass_y, radius, "direction", QColor(0, 0, 0, 0), 0.7f, -bearingUblox);
