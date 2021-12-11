@@ -64,7 +64,6 @@ void OnroadWindow::updateState(const UIState &s) {
   }
 
   hud->updateState(s);
-  m_pPaint->updateState(s);
 
   if (bg != bgColor) {
     // repaint border

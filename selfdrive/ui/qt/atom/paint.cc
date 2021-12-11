@@ -84,18 +84,28 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
     int bb_valueFontSize, int bb_labelFontSize, int bb_uomFontSize )
 {
  
+
+
   //nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   int dx = 0;
   int nLen = bb_uom.length();
   if (nLen > 0) {
     dx = (int)(bb_uomFontSize*2.5/2);
    }
+
+  QRect rc( bb_x, bb_y, 184, 184);
+  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 10));
+  p.setBrush(QColor(0, 0, 0, 100));
+  p.drawRoundedRect(rc, 20, 20);
+  p.setPen(Qt::NoPen);
+
+
   //print value
   configFont( p, "Open Sans",  bb_valueFontSize*2, "SemiBold");
   drawText( p, bb_x-dx/2, bb_y+ (int)(bb_valueFontSize*2.5)+5, bb_value, bb_valueColor );
   //print label
-  configFont( p, "Open Sans",  bb_valueFontSize*2, "Regular");
-  drawText( p, bb_x, bb_y + (int)(bb_valueFontSize*2.5)+5 + (int)(bb_labelFontSize*2.5)+5, bb_label, bb_labelColor);
+  configFont( p, "Open Sans",  bb_valueFontSize*1, "Regular");
+  drawText( p, bb_x, bb_y + (int)(bb_valueFontSize*1.5)+5 + (int)(bb_labelFontSize*1.5)+5, bb_label, bb_labelColor);
 
   //print uom
   if (nLen > 0) {
