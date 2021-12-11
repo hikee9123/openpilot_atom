@@ -89,8 +89,8 @@ void OnPaint::paintEvent(QPaintEvent *event)
     bb_ui_draw_UI( p );
     ui_main_navi( p );
 }
-
-void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qColor ) 
+// 
+void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qColor, int nAlign ) 
 {
   QFontMetrics fm(p.font());
   QRect init_rect = fm.boundingRect(text);
@@ -98,7 +98,8 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
   real_rect.moveCenter({x, y - real_rect.height() / 2});
 
   p.setPen( qColor ); //QColor(0xff, 0xff, 0xff, alpha));
-  p.drawText(real_rect.x(), real_rect.bottom(), text);
+  //p.drawText(real_rect.x(), real_rect.bottom(), text);
+  p.drawText(real_rect, nAlign, text);
 }
 
 
@@ -525,20 +526,26 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     p.drawPixmap(x+5 , y , img_tire_pressure);
 
     configFont( p, "Open Sans",  60, "SemiBold");
-    drawText( p, x-margin, y+45, get_tpms_text(fl) );
-    drawText( p, x+w+margin, y+45, get_tpms_text(fr) );
+    drawText( p, x-margin, y+45, get_tpms_text(fl), QColor(255,255,255,255), Qt::AlignRight  );
+    drawText( p, x+w+margin, y+45, get_tpms_text(fr), QColor(255,255,255,255), Qt::AlignLeft  );
 
-    drawText( p, x-margin, y+h-15, get_tpms_text(rl) );
-    drawText( p, x+w+margin, y+h-15, get_tpms_text(rr) );
+    drawText( p, x-margin, y+h-15, get_tpms_text(rl), QColor(255,255,255,255), Qt::AlignRight  );
+    drawText( p, x+w+margin, y+h-15, get_tpms_text(rr), QColor(255,255,255,255), Qt::AlignLeft  );
 }
 
 
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
-  auto   gps_ext = scene->gpsLocationExternal;
-  float  bearingUblox = gps_ext.getBearingDeg();
+  static  float  test;
 
+  auto   gps_ext = scene->gpsLocationExternal;
+  float  bearingUblox = test; // gps_ext.getBearingDeg();
+
+  
+  test += 0.1;
+  if( test > 360 )
+       test = 0;
 
     p.save();
     p.translate( compass_x, compass_y);
@@ -750,9 +757,9 @@ void OnPaint::ui_draw_debug1( QPainter &p )
 
 
   configFont( p, "Open Sans",  30, "SemiBold");
-  drawText( p, 0, 30, text1 );
-  drawText( p, 0, 970, text2 );
-  drawText( p, 0, 1010, text3 );
+  drawText( p, 0, 30, text1,QColor(255,255,255,255), Qt::AlignLeft  );
+  drawText( p, 0, 970, text2,QColor(255,255,255,255), Qt::AlignLeft  );
+  drawText( p, 0, 1010, text3,QColor(255,255,255,255), Qt::AlignLeft  );
 
   // p.drawText( 0, 30, text1 );
 
