@@ -20,7 +20,7 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(110, 110, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
   img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_40= QPixmap("../assets/addon/navigation/img_40_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -708,10 +708,10 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
 void OnPaint::ui_draw_navi( QPainter &p ) 
 {
  
-  float speedLimit = 60;// scene->liveNaviData.getSpeedLimit();  
-  float speedLimitAheadDistance = 100;// scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
-  float map_sign = 1;//scene->liveNaviData.getSafetySign();
-  int   mapValid = 1;// scene->liveNaviData.getMapValid();
+  float speedLimit =  scene->liveNaviData.getSpeedLimit();  
+  float speedLimitAheadDistance = scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
+  float map_sign = scene->liveNaviData.getSafetySign();
+  int   mapValid = scene->liveNaviData.getMapValid();
 
 
   if( mapValid )
@@ -732,14 +732,13 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);  
   nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
 */
-  QString text1 = QString::fromStdString(scene->alert.alertTextMsg1);
-  QString text2 = QString::fromStdString(scene->alert.alertTextMsg2);
-  QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
+  QString text1 = "QString::fromStdString(scene->alert.alertTextMsg1)";
+  QString text2 = "QString::fromStdString(scene->alert.alertTextMsg2)";
+  QString text3 = "QString::fromStdString(scene->alert.alertTextMsg3)";
 
    p.drawText( 0, 30, text1 );
    p.drawText( 0, 970, text2 );
    p.drawText( 0, 1010, text3 );
-
 }
 
 
