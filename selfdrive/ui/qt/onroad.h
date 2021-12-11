@@ -46,6 +46,9 @@ private:
   int status = STATUS_DISENGAGED;
 
 
+private:
+  int  m_nBrakeStatus;
+
 signals:
   void valueChanged();
 };

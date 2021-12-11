@@ -196,6 +196,13 @@ void OnroadHud::updateState(const UIState &s) {
   setProperty("hideDM", cs.getAlertSize() != cereal::ControlsState::AlertSize::NONE);
   setProperty("status", s.status);
 
+
+  bool  brakePress = s.scene.car_state.getBrakePressed();
+  bool  brakeLights = s.scene.car_state.getBrakeLightsDEPRECATED();
+
+  if( brakePress ) m_nBrakeStatus = 1; else m_nBrakeStatus = 0;
+  if( brakeLights ) m_nBrakeStatus |= 2;
+
   // update engageability and DM icons at 2Hz
   if (sm.frame % (UI_FREQ / 2) == 0) {
     setProperty("engageable", cs.getEngageable() || cs.getEnabled());
@@ -234,23 +241,7 @@ void OnroadHud::paintEvent(QPaintEvent *event) {
   drawCurrentSpeed( p, rect().center().x(), 210 );
   /*
   configFont(p, "Open Sans", 230, "Bold");
-  int x = rect().center().x();
-  int y = 210;
-  QColor  val_color = QColor(255, 255, 255, 255);
-  bool  brakePress = scene->car_state.getBrakePressed();
-  bool  brakeLights = scene->car_state.getBrakeLightsDEPRECATED();
-  if( brakePress  ) val_color = QColor(255, 0, 0, 255);;
-  else if( brakeLights ) val_color = QColor(201, 34, 49, 100);   
-
-
-  QFontMetrics fm(p.font());
-  QRect init_rect = fm.boundingRect(speed);
-  QRect real_rect = fm.boundingRect(init_rect, 0, speed);
-  real_rect.moveCenter({x, y - real_rect.height() / 2});
-  p.setPen( val_color );
-  p.drawText(real_rect.x(), real_rect.bottom(), speed);
-
-  //drawText(p, rect().center().x(), 210, speed);
+  drawText(p, rect().center().x(), 210, speed);
   configFont(p, "Open Sans", 50, "Regular");
   drawText(p, rect().center().x(), 290, speedUnit, 200);
   */
@@ -272,8 +263,8 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   configFont(p, "Open Sans", 230, "Bold");
 
   QColor  val_color = QColor(255, 255, 255, 255);
-  bool  brakePress = scene->car_state.getBrakePressed();
-  bool  brakeLights = scene->car_state.getBrakeLightsDEPRECATED();
+  bool  brakePress = m_nBrakeStatus & 0x01;
+  bool  brakeLights = m_nBrakeStatus & 0x02;
   if( brakePress  ) val_color = QColor(255, 0, 0, 255);;
   else if( brakeLights ) val_color = QColor(201, 34, 49, 100);   
 
@@ -285,7 +276,7 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   p.setPen( val_color );
   p.drawText(real_rect.x(), real_rect.bottom(), speed);
 
-  //drawText(p, rect().center().x(), 210, speed);
+
   configFont(p, "Open Sans", 50, "Regular");
   drawText(p, x, y+80, speedUnit, 200);
 }
