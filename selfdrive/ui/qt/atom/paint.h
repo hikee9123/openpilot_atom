@@ -19,15 +19,15 @@ public:
 private:
   void paintEvent(QPaintEvent *event) override;
   void drawText(QPainter &p, int x, int y, const QString &text, QColor qColor = QColor(255,255,255,255) );
-  void drawIcon(QPainter &p, int x, int y, QPixmap &img, QBrush bg, float opacity);
+
   
 private:
   UIState  *state;
   UIScene  *scene;
 
 private:
-  const int radius = 300;
-  const int img_size =  (radius / 2) * 1.5;
+  //const int radius = 192;
+  const int img_size = 200;// (radius / 2) * 1.5;
 
   QPixmap img_traf_turn;
   QPixmap img_compass;

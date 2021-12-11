@@ -102,7 +102,7 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
 }
 
 
-
+/*
 void OnPaint::drawIcon(QPainter &p, int x, int y, QPixmap &img, QBrush bg, float opacity) 
 {
   p.setPen(Qt::NoPen);
@@ -111,7 +111,7 @@ void OnPaint::drawIcon(QPainter &p, int x, int y, QPixmap &img, QBrush bg, float
   p.setOpacity(opacity);
   p.drawPixmap(x - img_size / 2, y - img_size / 2, img);
 }
-
+*/
 ///////////////////////////////////////////////////////////////////////////////
 //
 //
