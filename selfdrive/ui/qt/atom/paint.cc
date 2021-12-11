@@ -647,25 +647,26 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       
       crFill = QColor(nR, nG, nB, 200);
       
-/*
+
       int txt_size = int(img_size1*0.8);
       int txt_xpos = img_xpos + 20;  
       int txt_ypos = img_ypos + img_size1 - 20;
-      const Rect rect = { txt_xpos, txt_ypos, txt_size, 60};  
-      */
-    //  ui_fill_rect(s->vg, rect, crFill, 30.);
-     // ui_draw_rect(s->vg, rect, COLOR_WHITE_ALPHA(100), 5, 20.);        
+      QRect rect( txt_xpos, txt_ypos, txt_size, 60 );  
 
-     // nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
-     // ui_text(s, rect.centerX(), rect.centerY()+15, szSLD, 40, COLOR_WHITE, "sans-bold");
+      p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 5));
+      p.setBrush( crFill );
+      p.drawRoundedRect(rc, 20, 20);
+      p.setPen(Qt::NoPen);
+    
+      p.setPen( QColor(0xff, 0xff, 0xff, 255) ); //QColor(0xff, 0xff, 0xff, alpha));
+      QPoint pt = rect.center();
+      p.drawText( pt.x(), pt.y(), szSLD);
     }
 
     // 2. image
     if( traffic_sign  )
     {
       p.drawPixmap(img_xpos , img_ypos, *traffic_sign);
-    //  float img_alpha = 0.9f;
-     // ui_draw_image(s, {img_xpos, img_ypos, img_size1, img_size1}, traffic_sign, img_alpha);
     }
 
     const char  *szSign = NULL;
