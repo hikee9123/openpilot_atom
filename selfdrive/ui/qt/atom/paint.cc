@@ -99,7 +99,7 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
   drawText( p, bb_x-dx/2, bb_y+ (int)(bb_valueFontSize*2.5)+5, bb_value, bb_valueColor );
   //print label
   configFont( p, "Open Sans",  bb_valueFontSize*1, "Regular");
-  drawText( p, bb_x, bb_y + (int)(bb_valueFontSize*1.5)+5 + (int)(bb_labelFontSize*1.5)+5, bb_label, bb_labelColor);
+  drawText( p, bb_x, bb_y + (int)(bb_valueFontSize*2.5)+5 + (int)(bb_labelFontSize*2.5)+5, bb_label, bb_labelColor);
 
   //print uom
   if (nLen > 0) {
@@ -406,6 +406,12 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
 
   //finally draw the frame
   bb_h += 20;
+
+  QRect rc( bb_x, bb_y, bb_w, bb_h);
+  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 5));
+  p.setBrush(QColor(0, 0, 0, 100));
+  p.drawRoundedRect(rc, 20, 20);
+  p.setPen(Qt::NoPen);  
 }
 
 
