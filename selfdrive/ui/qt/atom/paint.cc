@@ -659,8 +659,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       p.setPen(Qt::NoPen);
     
       p.setPen( QColor(0xff, 0xff, 0xff, 255) ); //QColor(0xff, 0xff, 0xff, alpha));
-      QPoint pt = rect.center();
-      p.drawText( pt.x(), pt.y(), Qt::AlignCenter, szSLD );//|Qt::AlignRight));
+      p.drawText( rect, Qt::AlignCenter, szSLD );//|Qt::AlignRight));
     }
 
     // 2. image
