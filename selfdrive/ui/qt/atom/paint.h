@@ -1,11 +1,22 @@
 #pragma once
 
+#include <QStackedLayout>
+#include <QWidget>
+
+
 #include "selfdrive/ui/ui.h"
 
 
-void ui_draw_image(const UIState *s, const Rect &r, const char *name, float alpha);
-void ui_draw_rect(NVGcontext *vg, const Rect &r, NVGcolor color, int width, float radius = 0);
-void ui_fill_rect(NVGcontext *vg, const Rect &r, const NVGpaint &paint, float radius = 0);
-void ui_fill_rect(NVGcontext *vg, const Rect &r, const NVGcolor &color, float radius = 0);
-void ui_nvg_init(UIState *s);
-void ui_draw(UIState *s, int w, int h);
+
+class OnPaint : public QWidget 
+{
+  Q_OBJECT
+
+public:
+  OnPaint(QWidget *parent);
+
+
+private:
+  void paintEvent(QPaintEvent *event) override;
+
+};

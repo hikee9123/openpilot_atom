@@ -157,7 +157,6 @@ typedef struct UIScene {
 
 typedef struct UIState {
   int fb_w = 0, fb_h = 0;
-  NVGcontext *vg;
 
   std::unique_ptr<SubMaster> sm;
 

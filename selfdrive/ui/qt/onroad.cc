@@ -11,7 +11,7 @@
 #include "selfdrive/ui/qt/maps/map_helpers.h"
 #endif
 
-#include "selfdrive/ui/qt/atom/paint.h"
+
 
 OnroadWindow::OnroadWindow(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *main_layout  = new QVBoxLayout(this);
@@ -26,6 +26,9 @@ OnroadWindow::OnroadWindow(QWidget *parent) : QWidget(parent) {
   road_view_layout->addWidget(nvg);
   hud = new OnroadHud(this);
   road_view_layout->addWidget(hud);
+
+  m_pPaint = new OnPaint(this);
+  road_view_layout->addWidget(m_pPaint);
 
   QWidget * split_wrapper = new QWidget;
   split = new QHBoxLayout(split_wrapper);
@@ -274,7 +277,7 @@ void NvgWindow::initializeGL() {
   qInfo() << "OpenGL renderer:" << QString((const char*)glGetString(GL_RENDERER));
   qInfo() << "OpenGL language version:" << QString((const char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-  ui_nvg_init(&QUIState::ui_state);
+  //ui_nvg_init(&QUIState::ui_state);
   prev_draw_t = millis_since_boot();
   setBackgroundColor(bg_colors[STATUS_DISENGAGED]);
 }
@@ -375,7 +378,7 @@ void NvgWindow::paintGL() {
     }
   }
 
-  ui_draw(&QUIState::ui_state, width(), height());
+  //ui_draw(&QUIState::ui_state, width(), height());
   double cur_draw_t = millis_since_boot();
   double dt = cur_draw_t - prev_draw_t;
   if (dt > 66) {

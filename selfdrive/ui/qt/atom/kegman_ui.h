@@ -1,61 +1,6 @@
 #include <time.h>
 #include <dirent.h>
 
-/*
-static void ui_draw_track(UIState *s, const line_vertices_data &vd) 
-{
-  // kegman
-  if (vd.cnt == 0) return;
-
-  nvgBeginPath(s->vg);
-  nvgMoveTo(s->vg, vd.v[0].x, vd.v[0].y);
-  for (int i=1; i<vd.cnt; i++) {
-    nvgLineTo(s->vg, vd.v[i].x, vd.v[i].y);
-  }
-  nvgClosePath(s->vg);
-
-  int  steerOverride = s->scene.car_state.getSteeringPressed();
-  float  output_scale = s->scene.controls_state.getOutput();
-
-  NVGpaint track_bg;
-  if (s->scene.controls_state.getEnabled()) {
-    // Draw colored MPC track Kegman's
-    if ( steerOverride) {
-      track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-        nvgRGBA(0, 191, 255, 255), nvgRGBA(0, 95, 128, 50));
-    } else {
-      int torque_scale = (int)fabs(510*(float)output_scale);
-      int red_lvl = fmin(255, torque_scale);
-      int green_lvl = fmin(255, 510-torque_scale);
-      track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-        nvgRGBA(          red_lvl,            green_lvl,  0, 255),
-        nvgRGBA((int)(0.5*red_lvl), (int)(0.5*green_lvl), 0, 50));
-    }
-  } else {
-    // Draw white vision track
-    track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h * .4,
-                                        COLOR_WHITE, COLOR_WHITE_ALPHA(0));
-  }
-
-  nvgFillPaint(s->vg, track_bg);
-  nvgFill(s->vg); 
-}
-*/
-
-
-/*
-static void bb_ui_text(const UIState *s, float x, float y, const char *string, float size, NVGcolor color, const char *font_name) {
-
-  if( font_name )
-  {
-    nvgFontFace(s->vg, font_name);
-    nvgFontSize(s->vg, size);
-  }
-
-  nvgFillColor(s->vg, color);
-  nvgText(s->vg, x, y, string, NULL);
-}
-*/
 
 static void ui_draw_circle_image_rotation(const UIState *s, int center_x, int center_y, int radius, const char *image, NVGcolor color, float img_alpha, float angleSteers = 0) {
   const int img_size = radius * 1.5;

@@ -98,6 +98,9 @@ private:
   QWidget *map = nullptr;
   QHBoxLayout* split;
 
+  // atom
+  OnPaint *m_pPaint;
+
 signals:
   void updateStateSignal(const UIState &s);
   void offroadTransitionSignal(bool offroad);
