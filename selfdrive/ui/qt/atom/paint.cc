@@ -655,7 +655,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
 
       p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 5));
       p.setBrush( crFill );
-      p.drawRoundedRect(rc, 20, 20);
+      p.drawRoundedRect(rect, 20, 20);
       p.setPen(Qt::NoPen);
     
       p.setPen( QColor(0xff, 0xff, 0xff, 255) ); //QColor(0xff, 0xff, 0xff, alpha));
