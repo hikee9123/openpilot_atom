@@ -26,8 +26,8 @@ private:
   UIScene  *scene;
 
 private:
-  //const int radius = 192;
-  const int img_size = 200;// (radius / 2) * 1.5;
+  const int radius = 300;
+  const int img_size =  (radius / 2) * 1.5;
 
   QPixmap img_traf_turn;
   QPixmap img_compass;
