@@ -626,7 +626,6 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     // 1. text  Distance
     if( speedLimitAheadDistance >= 5 )
     {
-       char  szSLD[50];
       if( speedLimitAheadDistance >= 1000 )
         szSLD.sprintf("%.1fkm", speedLimitAheadDistance * 0.001 );
       else
@@ -727,9 +726,13 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);  
   nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
 */
-   p.drawText( 0, 30, QString(scene->alert.alertTextMsg1) );
-   p.drawText( 0, 970, QString(scene->alert.alertTextMsg2) );
-   p.drawText( 0, 1010, QString(scene->alert.alertTextMsg3) );
+  QString text1 = QString::fromStdString(scene->alert.alertTextMsg1);
+  QString text2 = QString::fromStdString(scene->alert.alertTextMsg2);
+  QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
+
+   p.drawText( 0, 30, text1 );
+   p.drawText( 0, 970, text2 );
+   p.drawText( 0, 1010, text3 );
 
 }
 
