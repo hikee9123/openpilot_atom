@@ -86,15 +86,6 @@ void OnPaint::paintEvent(QPaintEvent *event)
   p.setRenderHint(QPainter::Antialiasing);
 
 
-  // max speed
-  //QRect rc(bdr_s * 2, bdr_s * 1.5, 184, 202);
-
-  //QRect rc(bdr_s * 2, bdr_s * 1.5 + 100, 184, 202);
- // p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 10));
-  //p.setBrush(QColor(0, 0, 0, 100));
-  //p.drawRoundedRect(rc, 20, 20);
-  //p.setPen(Qt::NoPen);
-  //if( scene )
     bb_ui_draw_UI( p );
     ui_main_navi( p );
 }
@@ -610,15 +601,15 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     else if( nTrafficSign == TS_BUS_ONLY ) traffic_sign = &img_traf_turn;  // 버스전용차로단속
     else if( nTrafficSign == TS_BUMP_ROAD ) traffic_sign = &img_speed_bump;  // 과속방지턱
     else if( speedLimit <= 10 )  traffic_sign = NULL;
-    else if( speedLimit <= 30 )  traffic_sign = img_speed_30;
-    else if( speedLimit <= 40 )  traffic_sign = img_speed_40;
-    else if( speedLimit <= 50 )  traffic_sign = img_speed_50;
-    else if( speedLimit <= 60 )  traffic_sign = img_speed_60;
-    else if( speedLimit <= 70 )  traffic_sign = img_speed_70;
-    else if( speedLimit <= 80 )  traffic_sign = img_speed_80;
-    else if( speedLimit <= 90 )  traffic_sign = img_speed_90;
-    else if( speedLimit <= 100 )  traffic_sign = img_speed_100;
-    else if( speedLimit <= 110 )  traffic_sign = img_speed_110;
+    else if( speedLimit <= 30 )  traffic_sign = &img_speed_30;
+    else if( speedLimit <= 40 )  traffic_sign = &img_speed_40;
+    else if( speedLimit <= 50 )  traffic_sign = &img_speed_50;
+    else if( speedLimit <= 60 )  traffic_sign = &img_speed_60;
+    else if( speedLimit <= 70 )  traffic_sign = &img_speed_70;
+    else if( speedLimit <= 80 )  traffic_sign = &img_speed_80;
+    else if( speedLimit <= 90 )  traffic_sign = &img_speed_90;
+    else if( speedLimit <= 100 )  traffic_sign = &img_speed_100;
+    else if( speedLimit <= 110 )  traffic_sign = &img_speed_110;
 
   
     if( nTrafficSign && traffic_sign == NULL )
