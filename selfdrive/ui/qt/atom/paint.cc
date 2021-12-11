@@ -108,10 +108,10 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
     int ry = bb_y + (int)(bb_valueFontSize*2.5/2)+25;
     configFont( p, "Open Sans",  bb_uomFontSize*2, "Regular");
 
-    p->save();
+    p.save();
     drawText( p, rx, ry, bb_uom, bb_uomColor);
-    p->ratate( -90 );
-    p->restore();
+    p.ratate( -90 );
+    p.restore();
   }
   return (int)((bb_valueFontSize + bb_labelFontSize)*2.5) + 5;
 }
