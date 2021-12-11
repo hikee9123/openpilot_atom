@@ -224,10 +224,10 @@ void OnroadHud::paintEvent(QPaintEvent *event) {
   drawText(p, rc.center().x(), 85, "MAX", is_cruise_set ? 200 : 100);
   if (is_cruise_set) {
     configFont(p, "Open Sans", 88, is_cruise_set ? "Bold" : "SemiBold");
-    drawText(p, rc.center().x(), 212, maxSpeed, 255);
+    drawText(p, rc.center().x(), 205, maxSpeed, 255);
   } else {
-    configFont(p, "Open Sans", 80, "SemiBold");
-    drawText(p, rc.center().x(), 212, maxSpeed, 100);
+    configFont(p, "Open Sans", 63, "SemiBold");
+    drawText(p, rc.center().x(), 190, maxSpeed, 100);
   }
 
   // current speed
