@@ -705,7 +705,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
 void OnPaint::ui_draw_navi( QPainter &p ) 
 {
  
-  float speedLimit =  scene->liveNaviData.getSpeedLimit();  
+  float speedLimit = 60;// scene->liveNaviData.getSpeedLimit();  
   float speedLimitAheadDistance = 100;// scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
   float map_sign = scene->liveNaviData.getSafetySign();
   int   mapValid = 1;// scene->liveNaviData.getMapValid();
