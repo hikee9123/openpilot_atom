@@ -28,7 +28,7 @@ private:
 private:
   const int radius = 192;
   const int img_size = (radius / 2) * 1.5;
-  
+
   QPixmap img_traf_turn;
   QPixmap img_compass;
   QPixmap img_direction;
@@ -51,6 +51,13 @@ private:
   QPixmap img_bus_only;
 
 
+
+// navi
+private:
+  float  interp( float xv, float xp[], float fp[], int N);
+
+
+// kegmen
 private:
   //void ui_draw_circle_image_rotation(const UIState *s, int center_x, int center_y, int radius, const char *image, NVGcolor color, float img_alpha, float angleSteers = 0);
   int  bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QString &bb_uom, const QString &bb_label,

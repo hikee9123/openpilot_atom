@@ -44,6 +44,42 @@ void OnPaint::updateState(const UIState &s)
    //scene = s;
 }
 
+
+float OnPaint::interp( float xv, float xp[], float fp[], int N)
+{
+	float dResult = 0; 
+	int low, hi = 0;
+
+	while ( (hi < N) && (xv > xp[hi]))
+	{
+		hi += 1;
+	}
+	low = hi - 1;
+	if( low < 0 )
+	{
+		low = N-1;
+		return fp[0];
+	}
+
+	if (hi == N && xv > xp[low])
+	{
+		return fp[N-1];
+	}
+	else
+	{
+		if( hi == 0 )
+		{
+			return fp[0];
+		}
+		else
+		{
+			dResult = (xv - xp[low]) * (fp[hi] - fp[low]) / (xp[hi] - xp[low]) + fp[low];
+			return dResult;
+		}
+	}
+	return  dResult;
+}
+
 void OnPaint::paintEvent(QPaintEvent *event) 
 {
   QPainter p(this);
@@ -550,3 +586,13 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   }
 }
 //BB END: functions added for the display of various items
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+
+
+/*
+this is navigation code by OPKR, and thank you to the OPKR developer.
+I love OPKR code.
+*/
