@@ -20,7 +20,7 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(190, 190, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
   img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_40= QPixmap("../assets/addon/navigation/img_40_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
