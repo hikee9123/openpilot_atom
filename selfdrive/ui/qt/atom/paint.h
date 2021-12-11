@@ -19,10 +19,34 @@ public:
 private:
   void paintEvent(QPaintEvent *event) override;
   void drawText(QPainter &p, int x, int y, const QString &text, QColor qColor = QColor(255,255,255,255) );
+  void drawIcon(QPainter &p, int x, int y, QPixmap &img, QBrush bg, float opacity);
   
 private:
   UIState  *state;
   UIScene  *scene;
+
+private:
+  QPixmap img_traf_turn;
+  QPixmap img_compass;
+  QPixmap img_direction;
+  QPixmap img_tire_pressure;
+
+  QPixmap img_speed_30;
+  QPixmap img_speed_40;
+  QPixmap img_speed_50;
+  QPixmap img_speed_60;
+  QPixmap img_speed_70;
+  QPixmap img_speed_80;
+  QPixmap img_speed_90;
+  QPixmap img_speed_100;
+  QPixmap img_speed_110;
+  QPixmap img_speed_var;
+  QPixmap img_img_space;
+  QPixmap img_car_left;
+  QPixmap img_car_right;
+  QPixmap img_speed_bump;
+  QPixmap img_bus_only;
+}
 
 private:
   //void ui_draw_circle_image_rotation(const UIState *s, int center_x, int center_y, int radius, const char *image, NVGcolor color, float img_alpha, float angleSteers = 0);

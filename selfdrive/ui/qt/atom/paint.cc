@@ -15,6 +15,28 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 {
    state = &QUIState::ui_state;
    scene = &QUIState::ui_state.scene;
+
+
+  img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+  img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_40= QPixmap("../assets/addon/navigation/img_40_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_50= QPixmap("../assets/addon/navigation/img_50_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_60= QPixmap("../assets/addon/navigation/img_60_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_70= QPixmap("../assets/addon/navigation/img_70_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_80= QPixmap("../assets/addon/navigation/img_80_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_90= QPixmap("../assets/addon/navigation/img_90_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);,
+  img_speed_100= QPixmap("../assets/addon/navigation/img_100_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_110= QPixmap("../assets/addon/navigation/img_110_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_var= QPixmap("../assets/addon/navigation/img_var_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_img_space= QPixmap("../assets/addon/navigation/img_space.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_car_left= QPixmap("../assets/addon/navigation/img_car_left.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_car_right= QPixmap("../assets/addon/navigation/img_car_right.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_speed_bump= QPixmap("../assets/addon/navigation/img_speed_bump.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_bus_only= QPixmap("../assets/addon/navigation/img_bus_only.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
 void OnPaint::updateState(const UIState &s)
@@ -49,6 +71,17 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
 
   p.setPen( qColor ); //QColor(0xff, 0xff, 0xff, alpha));
   p.drawText(real_rect.x(), real_rect.bottom(), text);
+}
+
+
+
+void OnPaint::drawIcon(QPainter &p, int x, int y, QPixmap &img, QBrush bg, float opacity) 
+{
+  p.setPen(Qt::NoPen);
+  p.setBrush(bg);
+  p.drawEllipse(x - radius / 2, y - radius / 2, radius, radius);
+  p.setOpacity(opacity);
+  p.drawPixmap(x - img_size / 2, y - img_size / 2, img);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -435,7 +468,7 @@ QColor OnPaint::get_tpms_color(float tpms)
 QString OnPaint::get_tpms_text(float tpms) 
 {
     if(tpms < 5 || tpms > 200)
-        return "";
+        return "-";
 
     QString str;
     str.sprintf("%.0f", round(tpms) );
@@ -460,6 +493,7 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 
     const int margin = 10;
 
+    drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
 
     configFont( p, "Open Sans",  60, "SemiBold");
     drawText( p, x-margin, y+45, get_tpms_text(fl) );
