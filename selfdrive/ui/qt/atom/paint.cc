@@ -47,7 +47,7 @@ void OnPaint::updateState(const UIState &s)
     float  _gpsAccuracyUblox = gps_ext.getAccuracy();
     float  _altitudeUblox = gps_ext.getAltitude(); 
 
-    auto   gps_ext = s.scene.gpsLocationExternal;
+   // auto   gps_ext = s.scene.gpsLocationExternal;
     float  _bearingUblox = gps_ext.getBearingDeg();
 
 
