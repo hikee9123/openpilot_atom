@@ -11,8 +11,6 @@
 #include "selfdrive/ui/qt/maps/map_helpers.h"
 #endif
 
-
-
 OnroadWindow::OnroadWindow(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *main_layout  = new QVBoxLayout(this);
   main_layout->setMargin(bdr_s);
@@ -66,6 +64,7 @@ void OnroadWindow::updateState(const UIState &s) {
   }
 
   hud->updateState(s);
+  m_pPaint->updateState(s);
 
   if (bg != bgColor) {
     // repaint border
