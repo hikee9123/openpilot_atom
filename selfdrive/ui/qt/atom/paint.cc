@@ -13,6 +13,7 @@
 // OnroadHud
 OnPaint::OnPaint(QWidget *parent) : QWidget(parent) 
 {
+   state = &QUIState::ui_state;
    scene = &QUIState::ui_state.scene;
 }
 
@@ -253,7 +254,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
 
 
-  auto radar_state = (*scene->sm)["radarState"].getRadarState();  // radar
+  auto radar_state = (*state->sm)["radarState"].getRadarState();  // radar
   auto lead_radar = radar_state.getLeadOne();
 
 
@@ -281,7 +282,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
        val_str = "-";
     }
 
-    auto lead_cam = (*scene->sm)["modelV2"].getModelV2().getLeadsV3()[0];  // camera
+    auto lead_cam = (*state->sm)["modelV2"].getModelV2().getLeadsV3()[0];  // camera
     if (lead_cam.getProb() > 0.1) {
       float d_rel1 = lead_cam.getX()[0];
 
@@ -419,7 +420,7 @@ QString OnPaint::get_tpms_text(float tpms)
 void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 {
     //const UIScene *scene = &s->scene;
-   // auto car_state = (*s->sm)["carState"].getCarState();
+   // auto car_state = (*state->sm)["carState"].getCarState();
     auto tpms = car_state.getTpms();
 
     const float fl = tpms.getFl();
