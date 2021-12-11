@@ -110,7 +110,7 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
 
     p.save();
     p.translate( rx, ry);
-    p.rotate( -1.5708) );
+    p.rotate( -90 );
     p.setPen( bb_uomColor ); //QColor(0xff, 0xff, 0xff, alpha));
     p.drawText( 0, 0, bb_uom);
     //drawText( p, 0, 0, bb_uom, bb_uomColor);
