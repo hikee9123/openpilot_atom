@@ -547,8 +547,8 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
        m_test_cnt = 0;
 
     p.save();
-    p.setOpacity(0.8);     
-    p.translate( compass_x-size, compass_y-size);
+    p.setOpacity(0.8);
+    p.translate( compass_x+size, compass_y+size);
      p.rotate( -bearingUblox );
     //p.setPen( QColor(0, 0, 0, 100) ); 
 
@@ -556,7 +556,7 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
     //rm.rotate( -bearingUblox );
     //img_direction = img_direction.transformed(rm);
 
-    p.drawPixmap( size , size, img_direction );
+    p.drawPixmap( -size , -size, img_direction );
     p.restore();
 
 
