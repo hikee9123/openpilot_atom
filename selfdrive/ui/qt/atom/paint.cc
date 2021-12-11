@@ -93,12 +93,6 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
     dx = (int)(bb_uomFontSize*2.5/2);
    }
 
-  QRect rc( bb_x, bb_y, 184, 184);
-  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 10));
-  p.setBrush(QColor(0, 0, 0, 100));
-  p.drawRoundedRect(rc, 20, 20);
-  p.setPen(Qt::NoPen);
-
 
   //print value
   configFont( p, "Open Sans",  bb_valueFontSize*2, "SemiBold");
@@ -248,6 +242,14 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
   //finally draw the frame
   bb_h += 20;
+
+
+  QRect rc( bb_x, bb_y, bb_w, bb_h);
+  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 5));
+  p.setBrush(QColor(0, 0, 0, 100));
+  p.drawRoundedRect(rc, 20, 20);
+  p.setPen(Qt::NoPen);
+
 }
 
 
