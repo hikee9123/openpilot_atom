@@ -109,9 +109,11 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
     configFont( p, "Open Sans",  bb_uomFontSize*2, "Regular");
 
     p.save();
-    //p.translate( width / 2, height / 2);    
-    drawText( p, rx, ry, bb_uom, bb_uomColor);
-    p.rotate( -90 );
+    p.translate( rx, ry);
+    p.rotate( -1.5708) );
+    p.setPen( bb_uomColor ); //QColor(0xff, 0xff, 0xff, alpha));
+    p.drawText( 0, 0, bb_uom);
+    //drawText( p, 0, 0, bb_uom, bb_uomColor);
     p.restore();
   }
   return (int)((bb_valueFontSize + bb_labelFontSize)*2.5) + 5;
