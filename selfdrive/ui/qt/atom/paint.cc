@@ -18,8 +18,8 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 
 
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(110, 110, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
   img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -536,10 +536,20 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
+  auto   gps_ext = scene.gpsLocationExternal;
+  float  bearingUblox = gps_ext.getBearingDeg();
 
-  //auto   gps_ext = scene.gpsLocationExternal;
- // float  bearingUblox = gps_ext.getBearingDeg();
 
+    p.save();
+    p.translate( compass_x, compass_y);
+    p.rotate( -bearingUblox );
+    p.setPen( QColor(0, 0, 0, 100) );  
+    p.drawPixmap(0 , 0, img_direction );
+    p.restore();
+
+
+  
+  p.drawPixmap(compass_x , compass_y, img_compass );
 
  // const int radius = 130;// 85 + 40;
  // ui_draw_circle_image_rotation(s, compass_x, compass_y, radius, "direction", QColor(0, 0, 0, 0), 0.7f, -bearingUblox);
@@ -571,7 +581,7 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   }
 
   // 3. compass
-  if( 0 )
+  if( true )
   {
     const int compass_x = state->fb_w / 2 - 20;
     const int compass_y = state->fb_h - 40;
@@ -583,7 +593,7 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  Nevi
-
+//
 
 /*
 this is navigation code by OPKR, and thank you to the OPKR developer.
@@ -631,8 +641,6 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
       else
         szSLD.sprintf("%.0f", speedLimitAheadDistance );
 
-
-      
       QColor crFill = QColor(0,0,0,100); // nvgRGBA(255, 255, 255,100);
       
       float fpR[] = {255, 255, 0};
@@ -667,8 +675,6 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     {
       p.drawPixmap(img_xpos , img_ypos, *traffic_sign);
      // p.drawPixmap( QRect(img_xpos, img_ypos, img_size1, img_size1), *traffic_sign);
-
-      
     }
 
     const char  *szSign = NULL;
@@ -683,7 +689,7 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     else if( nTrafficSign == TS_CAMERA4 ) szSign = "이동식";
     else if( nTrafficSign == TS_CAMERA5 ) szSign = "카메라";  
     else if( nTrafficSign == TS_INTERVAL ) szSign = "구간단속";
-    else  if( nTrafficSign == TS_CURVE_RIGHT ) szSign = "우측커브";
+    else if( nTrafficSign == TS_CURVE_RIGHT ) szSign = "우측커브";
     else if( nTrafficSign == TS_CURVE_LEFT ) szSign = "좌측커브";
     else if( nTrafficSign == TS_RAIL_ROAD ) szSign = "철길건널목";
     else if( nTrafficSign == TS_PARK_CRACKDOWN ) szSign = "주정차금지";
@@ -707,7 +713,6 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
 
 void OnPaint::ui_draw_navi( QPainter &p ) 
 {
- 
   float speedLimit =  scene->liveNaviData.getSpeedLimit();  
   float speedLimitAheadDistance = scene->liveNaviData.getArrivalDistance(); // getSpeedLimitDistance();  
   float map_sign = scene->liveNaviData.getSafetySign();
@@ -718,8 +723,6 @@ void OnPaint::ui_draw_navi( QPainter &p )
   {
     ui_draw_traffic_sign( p, map_sign, speedLimit, speedLimitAheadDistance );
   }
-    
-  
 }
 
 void OnPaint::ui_draw_debug1( QPainter &p ) 
