@@ -520,12 +520,12 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     int x = viz_tpms_x;// bdr_s + 80;
     int y = viz_tpms_y - h;// s->fb_h - bdr_s - h - 60;
 
-    const int margin = 20;
+    const int margin = 30;
 
    // drawIcon(p, x, y, img_tire_pressure, QColor(0, 0, 0, 70), 1.0);
     p.drawPixmap(x+5 , y , img_tire_pressure);
 
-    configFont( p, "Open Sans",  60, "SemiBold");
+    configFont( p, "Open Sans",  55, "SemiBold");
     drawText( p, x-margin, y+45, get_tpms_text(fl)  );
     drawText( p, x+w+margin, y+45, get_tpms_text(fr)  );
 
@@ -533,12 +533,12 @@ void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
     drawText( p, x+w+margin, y+h-15, get_tpms_text(rr)  );
 }
 
-float  test = 0;
+static float  test;
 //draw compass by opkr and re-designed by hoya
 void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
 {
  // auto   gps_ext = scene->gpsLocationExternal;
-  float  bearingUblox = 10 + test; // gps_ext.getBearingDeg();
+  float  bearingUblox = -10 + test; // gps_ext.getBearingDeg();
 
   
   test += 1;
@@ -563,8 +563,7 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
   p.drawPixmap(compass_x , compass_y, img_compass );
 
   QString szSLD;
-
-  szSLD.sprintf( "%.1f",test );
+  szSLD.sprintf( "%.1f", bearingUblox );
   p.drawText( compass_x, compass_y, szSLD );
 
  // const int radius = 130;// 85 + 40;
