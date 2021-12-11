@@ -18,8 +18,8 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 
 
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(110, 110, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
   img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -543,7 +543,8 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
     p.save();
     p.translate( compass_x, compass_y);
     p.rotate( -bearingUblox );
-    p.setPen( QColor(0, 0, 0, 100) );  
+    //p.setPen( QColor(0, 0, 0, 100) ); 
+    p.setOpacity(0.2); 
     p.drawPixmap(0 , 0, img_direction );
     p.restore();
 
