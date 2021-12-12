@@ -13,6 +13,9 @@
 // OnroadHud
 OnPaint::OnPaint(QWidget *parent) : QWidget(parent) 
 {
+  m_param.bbh_left = 0;
+  m_param.bbh_right = 0;
+
   state = &QUIState::ui_state;
   scene = &QUIState::ui_state.scene;
 
@@ -82,6 +85,7 @@ void OnPaint::updateState(const UIState &s)
     if( memcmp( &m_param, &m_old, sizeof(m_param)) )
     {
        m_old = m_param;
+       update(); 
        invalidate++;
     }
     if( invalidate > 99 )
