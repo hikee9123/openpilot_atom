@@ -727,12 +727,17 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     else if( nTrafficSign == TS_SHOULDER ) szSign = "갓길단속";
     else if( nTrafficSign == TS_TRAFFIC_INFO ) szSign = "교통정보";
 
+
+    configFont( p, "Open Sans",  26, "SemiBold");
     if( szSign )
     {
-      configFont( p, "Open Sans",  26, "SemiBold");
-
       QString  strSign = QString(szSign);
       drawText( p, img_xpos + int(img_size1*0.5), img_ypos+25, strSign );
+    }
+    else
+    {
+      zSLD.sprintf("%d", nTrafficSign );
+      drawText( p, img_xpos + int(img_size1*0.5), img_ypos + int(img_size1*0.5), zSLD );
     }
 }
 
@@ -759,7 +764,7 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
 
   QTextOption  textOpt =  QTextOption( Qt::AlignLeft );
-  configFont( p, "Open Sans",  35, "Regular");
+  configFont( p, "Open Sans",  30, "Regular");
 
   p.drawText( QRect(0, 0, width(), 30), text1, textOpt );
   p.drawText( QRect(0, 970, width(), 30), text2, textOpt );
