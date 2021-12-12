@@ -305,7 +305,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
   //finally draw the frame
   bb_h += 20;
-
+  m_param.bbh_right = bb_h;
 
   QRect rc( bb_x, bb_y, bb_w, bb_h);
   p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
@@ -469,6 +469,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
 
   //finally draw the frame
   bb_h += 20;
+  m_param.bbh_left = bb_h;
 
   QRect rc( bb_x, bb_y, bb_w, bb_h);
   p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
