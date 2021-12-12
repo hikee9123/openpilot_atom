@@ -45,7 +45,7 @@ void OnPaint::updateState(const UIState &s)
 {
   double cur_draw_t = millis_since_boot();
   double dt = cur_draw_t - prev_draw_t;
-  if (dt < 100)  return;
+  if (dt < 50)  return;
   prev_draw_t = cur_draw_t;
 
   SubMaster &sm = *(s.sm);
@@ -130,9 +130,9 @@ void OnPaint::paintEvent(QPaintEvent *event)
   QPainter p(this);
   //p.setRenderHint(QPainter::Antialiasing);
 
-  printf( "OnPaint::paintEvent" );
+//  printf( "OnPaint::paintEvent" );
 
-  //bb_ui_draw_UI( p );
+  bb_ui_draw_UI( p );
   ui_main_navi( p );
 }
 // 
