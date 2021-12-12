@@ -54,9 +54,8 @@ private:
   
 
 private:
-  //const int radius = 192;
   const int img_size = 200;// (radius / 2) * 1.5;
-  const int img_size_compass = 280;
+  const int img_size_compass = 300;
 
   
 

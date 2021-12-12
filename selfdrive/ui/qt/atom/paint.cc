@@ -199,12 +199,11 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
 
 QColor OnPaint::get_color( int nVal, int nRed, int nYellow ) 
 {
-  QColor  lab_color  QColor(255, 255, 255, 255);
+  QColor  lab_color =  QColor(255, 255, 255, 255);
 
       if(nVal > nRed) {
         lab_color = QColor(255, 0, 0, 200);
-      }
-      else if( nVal > nYellow) {
+      } else if( nVal > nYellow) {
         lab_color = QColor(255, 188, 3, 200);
       }
 
