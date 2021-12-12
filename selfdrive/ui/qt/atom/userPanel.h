@@ -244,9 +244,7 @@ class CarSelectCombo : public AbstractControl
 public:
   CarSelectCombo();
 
-private:
-  QLabel label;
-
+public:
   QComboBox  combobox;
 
   void refresh();

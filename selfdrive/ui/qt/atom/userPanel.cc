@@ -222,7 +222,7 @@ CUserPanel::CUserPanel(QWidget* parent) : QFrame(parent)
   layout()->addWidget(horizontal_line());
 
 
-  QWidget *pCarSelectmenu = new CarSelectCombo();
+  CarSelectCombo *pCarSelectmenu = new CarSelectCombo();
   layout()->addWidget( pCarSelectmenu );
   layout()->addWidget( new CarSelectBtn(pCarSelectmenu) );
   
@@ -779,9 +779,6 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
 
 
   hlayout->addWidget(&combobox);
-  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
-  label.setStyleSheet("color: #e0e879");
-  hlayout->addWidget(&label);
 
 
   QObject::connect(&combobox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](int index)
@@ -799,7 +796,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
 void CarSelectCombo::refresh() 
 {
    int nIdx = combobox.currentIndex();
-  label.setText( QString::number(nIdx) );
+  //label.setText( QString::number(nIdx) );
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
