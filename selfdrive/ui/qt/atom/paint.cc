@@ -21,7 +21,7 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 
   img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size_compass, img_size_compass, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size_compass, img_size_compass, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(90, 90, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -611,7 +611,7 @@ void OnPaint::bb_ui_draw_UI(QPainter &p)
   if( true )
   {
     const int compass_x = state->fb_w / 2 - 100;
-    const int compass_y = state->fb_h - 100;
+    const int compass_y = state->fb_h - 150;
     bb_draw_compass( p, compass_x, compass_y );
   }
 }
