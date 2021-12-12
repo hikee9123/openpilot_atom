@@ -758,14 +758,12 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   QString text2 = "QString::fromStdString(scene->alert.alertTextMsg2)";
   QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
 
+  QTextOption  textOpt =  QTextOption( Qt::AlignLeft );
+  configFont( p, "Open Sans",  35, "Regular");
 
-  configFont( p, "Open Sans",  35, "SemiBold");
-
-   QTextOption  textOpt =  QTextOption( Qt::AlignLeft );
-
-  p.drawText( QRect(0, 0, width(), 20), text1, textOpt );
-  p.drawText( QRect(0, 970, width(), 20), text2, textOpt );
-  p.drawText( QRect(0, 1010, width(), 20), text3, textOpt );
+  p.drawText( QRect(0, 0, width(), 30), text1, textOpt );
+  p.drawText( QRect(0, 970, width(), 30), text2, textOpt );
+  p.drawText( QRect(0, 1010, width(), 30), text3, textOpt );
 }
 
 
