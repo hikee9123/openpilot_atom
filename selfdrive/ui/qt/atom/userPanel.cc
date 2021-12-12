@@ -88,17 +88,11 @@ CUserPanel::CUserPanel(QWidget* parent) : QFrame(parent)
   setLayout(main_layout);
   layout()->addWidget(horizontal_line());  
   layout()->addWidget(new GitHash());
-
-  layout()->addWidget(horizontal_line());
-  
   layout()->addWidget(new SshLegacyToggle());
 
   layout()->addWidget(horizontal_line());
 
   layout()->addWidget(new IsOpenpilotViewEnabledToggle());
-
-  layout()->addWidget(horizontal_line());
-
 
 
    layout()->addWidget(new CAutoResumeToggle());
