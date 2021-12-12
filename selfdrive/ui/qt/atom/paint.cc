@@ -43,12 +43,19 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 
 void OnPaint::updateState(const UIState &s)
 {
+  double cur_draw_t = millis_since_boot();
+  double dt = cur_draw_t - prev_draw_t;
+  if (dt < 10)  return;
+
     auto gps_ext = s.scene.gpsLocationExternal;
     m_param.gpsAccuracyUblox = gps_ext.getAccuracy();
     m_param.altitudeUblox = gps_ext.getAltitude(); 
     m_param.bearingUblox = gps_ext.getBearingDeg();
 
     m_param.batteryTemp = s.scene.deviceState.getBatteryTempCDEPRECATED();
+    m_param.cpuPerc = s.scene.deviceState.getCpuUsagePercent()[0];
+    auto  maxCpuTemp = s.scene.deviceState.getCpuTempC();    
+    m_param.cpuTemp = maxCpuTemp[0];
 
     auto radar_state = (*s.sm)["radarState"].getRadarState();  // radar
     m_param.lead_radar = radar_state.getLeadOne();
@@ -56,6 +63,8 @@ void OnPaint::updateState(const UIState &s)
     m_param.angleSteers = s.scene.car_state.getSteeringAngleDeg();
     m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();      
     m_param.car_state = s.scene.car_state;
+
+
 
 
     if( memcmp( &m_param, &m_old, sizeof(m_param)) )
@@ -185,6 +194,20 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
   return (int)((bb_valueFontSize + bb_labelFontSize)*2.5) + 5;
 }
 
+QColor OnPaint::get_color( int nVal, int nRed, int nYellow ) 
+{
+  QColor  lab_color  QColor(255, 255, 255, 255);;
+
+      if(nVal > nRed) {
+        lab_color = QColor(255, 0, 0, 200);
+      }
+      else if( nVal > nYellow) {
+        lab_color = QColor(255, 188, 3, 200);
+      }
+
+  return lab_color;
+}
+
 
 void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb_w ) 
 {
@@ -215,21 +238,13 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
     QColor val_color = QColor(255, 255, 255, 200);
 
-    auto  maxCpuTemp = scene->deviceState.getCpuTempC();
-    int   cpuPerc = scene->deviceState.getCpuUsagePercent()[0];
-    float cpuTemp = maxCpuTemp[0];
+     val_color = get_color(  m_param.cpuTemp, 92, 80 );
+     lab_color = get_color(  m_param.cpuPerc, 70, 60 );
 
-
-      if( cpuTemp > 80) {
-        val_color = QColor(255, 188, 3, 200);
-      }
-      if(cpuTemp > 92) {
-        val_color = QColor(255, 0, 0, 200);
-      }
 
        // temp is alway in C * 10
-      val_str.sprintf("%.1f", cpuTemp );
-      uom_str.sprintf("%d", cpuPerc);
+      val_str.sprintf("%.1f", m_param.cpuTemp );
+      uom_str.sprintf("%d", m_param.cpuPerc);
       bb_h += bb_ui_draw_measure(p,  val_str, uom_str, "CPU TEMP",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -246,12 +261,8 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
     float  memTemp = scene->deviceState.getMemoryTempC();
     float gpuTemp = maxGpuTemp[0];
     
-      if( gpuTemp > 80) {
-        val_color = QColor(255, 188, 3, 200);
-      }
-      if(gpuTemp > 92) {
-        val_color = QColor(255, 0, 0, 200);
-      }
+    val_color = get_color(  gpuTemp, 92, 80 );
+    lab_color = get_color(  memTemp, 92, 80 );
 
        // temp is alway in C * 10
       val_str.sprintf("%.1f", gpuTemp );
@@ -265,16 +276,13 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
   } 
 
    //add battery temperature
+   lab_color = QColor(255, 255, 255, 200);
   if( true )
   {
     QColor val_color = QColor(255, 255, 255, 200);
 
-    if(m_param.batteryTemp > 40) {
-      val_color = QColor(255, 188, 3, 200);
-    }
-    if(m_param.batteryTemp > 50) {
-      val_color = QColor(255, 0, 0, 200);
-    }
+    val_color = get_color(  m_param.batteryTemp, 50, 40 );
+
     // temp is alway in C * 1000
     val_str.sprintf("%.1f", m_param.batteryTemp );
     uom_str = "";        
@@ -292,12 +300,8 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
     QColor val_color = QColor(255, 255, 255, 200);
     //show red/orange if gps accuracy is low
-      if(m_param.gpsAccuracyUblox > 2.0) {
-         val_color = QColor(255, 188, 3, 200);
-      }
-      if(m_param.gpsAccuracyUblox > 5.0) {
-         val_color = QColor(255, 0, 0, 200);
-      }
+     val_color = get_color( m_param.gpsAccuracyUblox, 5, 2 );
+
     // gps accuracy is always in meters
     if(m_param.gpsAccuracyUblox > 99 || m_param.gpsAccuracyUblox == 0) {
        val_str = "None";
@@ -383,7 +387,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
     }
     else
     {
-      uom_str = "-";
+      uom_str = "m";
     }
 
     bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "REL DIST",

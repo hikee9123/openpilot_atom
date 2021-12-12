@@ -20,9 +20,9 @@ public:
   void updateState(const UIState &s);
 
 private:
-  void paintEvent(QPaintEvent *event) override;
-  void drawText(QPainter &p, int x, int y, const QString &text, QColor qColor = QColor(255,255,255,255), int nAlign = Qt::AlignCenter );
-
+  void    paintEvent(QPaintEvent *event) override;
+  void    drawText(QPainter &p, int x, int y, const QString &text, QColor qColor = QColor(255,255,255,255), int nAlign = Qt::AlignCenter );
+  QColor  get_color( int nVal, int nRed, int nYellow );
   
 private:
   UIState  *state;
@@ -43,6 +43,8 @@ private:
     float  angleSteers;
     float  angleSteersDes;
     
+    int   cpuPerc;
+    float cpuTemp; 
     
     cereal::RadarState::LeadData::Reader lead_radar;
     cereal::CarState::Reader car_state;
