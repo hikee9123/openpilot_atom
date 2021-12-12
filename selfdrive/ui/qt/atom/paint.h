@@ -11,10 +11,9 @@
 class OnPaint : public QWidget 
 {
   Q_OBJECT
-  Q_PROPERTY(int status MEMBER status NOTIFY valueChanged);
-  Q_PROPERTY(float altitudeUblox MEMBER altitudeUblox NOTIFY valueChanged);
-  Q_PROPERTY(float gpsAccuracyUblox MEMBER gpsAccuracyUblox NOTIFY valueChanged);
-  Q_PROPERTY(float bearingUblox MEMBER bearingUblox NOTIFY valueChanged);
+  Q_PROPERTY(int invalidate MEMBER invalidate NOTIFY valueChanged);  
+
+
 
 public:
   explicit OnPaint(QWidget *parent);
@@ -29,24 +28,24 @@ private:
   UIState  *state;
   UIScene  *scene;
 
+  int   invalidate = 0;
 
-  int  status = 0;
-  float altitudeUblox =0;
-  float gpsAccuracyUblox =0;
-  float bearingUblox = 0;
-  int  m_test_cnt;
+
  
   struct _PARAM_
   {
-    int  bbh_left;
-    int  bbh_right;
-  } m_param;
+    int   bbh_left;
+    int   bbh_right;
+    float altitudeUblox;
+    float gpsAccuracyUblox;
+    float bearingUblox;    
+  } m_param, m_old;
   
 
 private:
   //const int radius = 192;
   const int img_size = 200;// (radius / 2) * 1.5;
-  const int img_size_compass = 250;
+  const int img_size_compass = 280;
 
   
 

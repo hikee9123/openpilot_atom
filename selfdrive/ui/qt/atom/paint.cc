@@ -13,8 +13,8 @@
 // OnroadHud
 OnPaint::OnPaint(QWidget *parent) : QWidget(parent) 
 {
-   state = &QUIState::ui_state;
-   scene = &QUIState::ui_state.scene;
+  state = &QUIState::ui_state;
+  scene = &QUIState::ui_state.scene;
 
 
   img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -44,21 +44,17 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
 void OnPaint::updateState(const UIState &s)
 {
     auto gps_ext = s.scene.gpsLocationExternal;
-    float  _gpsAccuracyUblox = gps_ext.getAccuracy();
-    float  _altitudeUblox = gps_ext.getAltitude(); 
-
-   // auto   gps_ext = s.scene.gpsLocationExternal;
-    float  _bearingUblox = gps_ext.getBearingDeg();
+    m_param.gpsAccuracyUblox = gps_ext.getAccuracy();
+    m_param.altitudeUblox = gps_ext.getAltitude(); 
+    m_param.bearingUblox = gps_ext.getBearingDeg();
 
 
-   // m_test_cnt += 1;
-   // setProperty("status", m_test_cnt );
-
-
-
-    setProperty("gpsAccuracyUblox", _gpsAccuracyUblox );
-    setProperty("altitudeUblox", _altitudeUblox );
-    setProperty("bearingUblox", _bearingUblox );
+    if( m_param != m_old )
+    {
+       m_old = m_param;
+       invalidate++;
+    }
+    setProperty("invalidate", invalidate );
 }
 
 
@@ -288,22 +284,22 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
     QColor val_color = QColor(255, 255, 255, 200);
     //show red/orange if gps accuracy is low
-      if(gpsAccuracyUblox > 2.0) {
+      if(m_param.gpsAccuracyUblox > 2.0) {
          val_color = QColor(255, 188, 3, 200);
       }
-      if(gpsAccuracyUblox > 5.0) {
+      if(m_param.gpsAccuracyUblox > 5.0) {
          val_color = QColor(255, 0, 0, 200);
       }
     // gps accuracy is always in meters
-    if(gpsAccuracyUblox > 99 || gpsAccuracyUblox == 0) {
+    if(m_param.gpsAccuracyUblox > 99 || m_param.gpsAccuracyUblox == 0) {
        val_str = "None";
-    }else if(gpsAccuracyUblox > 9.99) {
-      val_str.sprintf("%.1f", gpsAccuracyUblox );
+    }else if(m_param.gpsAccuracyUblox > 9.99) {
+      val_str.sprintf("%.1f", m_param.gpsAccuracyUblox );
     }
     else {
-      val_str.sprintf("%.2f", gpsAccuracyUblox );
+      val_str.sprintf("%.2f", m_param.gpsAccuracyUblox );
     }
-    uom_str.sprintf("%.1f", altitudeUblox); 
+    uom_str.sprintf("%.1f", m_param.altitudeUblox); 
     bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "GPS PREC",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
@@ -549,7 +545,7 @@ void OnPaint::bb_draw_compass(QPainter &p, int compass_x, int compass_y )
     p.save();
     p.setOpacity(0.8);
     p.translate( compass_x+size, compass_y+size);
-    p.rotate( -bearingUblox );
+    p.rotate( m_param.bearingUblox );
     p.drawPixmap( -size , -size, img_direction );
     p.restore();
 
