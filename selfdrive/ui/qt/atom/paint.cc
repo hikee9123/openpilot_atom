@@ -120,7 +120,7 @@ void OnPaint::paintEvent(QPaintEvent *event)
   p.setRenderHint(QPainter::Antialiasing);
 
 
-  bb_ui_draw_UI( p );
+  //bb_ui_draw_UI( p );
   ui_main_navi( p );
 }
 // 
