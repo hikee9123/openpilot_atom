@@ -733,6 +733,7 @@ GitHash::GitHash() : AbstractControl("커밋(로컬/리모트)", "", "") {
 CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 강제로 인식시키는 메뉴입니다.", "") 
 {
   combobox.setStyleSheet(R"(
+    font-size: 50px;
     subcontrol-origin: padding;
     subcontrol-position: top right;
     selection-background-color: #111;
@@ -740,8 +741,9 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     color: white;
     background-color: #393939;
     border-style: solid;
-    border: 0px solid #1e1e1e;
-    border-radius: 0;
+    border: 1px solid #1e1e1e;
+    border-radius: 5;
+    padding: 1px 0px 1px 5px; 
     width: 200px;
   )");
 
