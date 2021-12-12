@@ -201,6 +201,7 @@ void OnroadHud::updateState(const UIState &s) {
   bool  brakePress = s.scene.car_state.getBrakePressed();
   bool  brakeLights = s.scene.car_state.getBrakeLightsDEPRECATED();
 
+
   if( brakePress ) m_nBrakeStatus = 1; else m_nBrakeStatus = 0;
   if( brakeLights ) m_nBrakeStatus |= 2;
 
@@ -265,8 +266,17 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   int  brakePress = m_nBrakeStatus & 0x01;
   int  brakeLights = m_nBrakeStatus & 0x02;
 
+  float gasVal = s.scene.car_state.getGas();
+
+
   if( brakePress  ) val_color = QColor(255, 0, 0, 255);
-  else if( brakeLights ) val_color = QColor(201, 34, 49, 100);   
+  else if( brakeLights ) val_color = QColor(201, 34, 49, 100);
+  else if( gasVal > 0 ) 
+  {
+    int  gasVal * 10 + 50;
+    if( gasVal > 255 ) gasVal = 255;
+    val_color = QColor(200, 200, 0, gasVal);
+  }
 
   configFont(p, "Open Sans", 250, "Bold");
   QFontMetrics fm(p.font());

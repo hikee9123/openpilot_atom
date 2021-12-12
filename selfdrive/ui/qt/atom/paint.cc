@@ -736,8 +736,8 @@ void OnPaint::ui_draw_traffic_sign( QPainter &p, float map_sign, float speedLimi
     }
     else
     {
-      zSLD.sprintf("%d", nTrafficSign );
-      drawText( p, img_xpos + int(img_size1*0.5), img_ypos + int(img_size1*0.5), zSLD );
+      szSLD.sprintf("%d", nTrafficSign );
+      drawText( p, img_xpos + int(img_size1*0.5), img_ypos + int(img_size1*0.5), szSLD );
     }
 }
 
@@ -759,8 +759,8 @@ void OnPaint::ui_draw_navi( QPainter &p )
 
 void OnPaint::ui_draw_debug1( QPainter &p ) 
 {
-  QString text1 = "QString::fromStdString(scene->alert.alertTextMsg1)";
-  QString text2 = "QString::fromStdString(scene->alert.alertTextMsg2)";
+  QString text1 = QString::fromStdString(scene->alert.alertTextMsg1);
+  QString text2 = QString::fromStdString(scene->alert.alertTextMsg2);
   QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
 
   QTextOption  textOpt =  QTextOption( Qt::AlignLeft );
