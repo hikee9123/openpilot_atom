@@ -40,11 +40,14 @@ private:
     float gpsAccuracyUblox;
     float bearingUblox;
     float  batteryTemp;
-
-    cereal::RadarState::LeadData::Reader lead_radar;
-
     float  angleSteers;
     float  angleSteersDes;
+    
+    
+    cereal::RadarState::LeadData::Reader lead_radar;
+    cereal::CarState::Reader car_state;
+
+
   } m_param, m_old;
   
 

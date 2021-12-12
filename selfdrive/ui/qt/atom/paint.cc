@@ -50,11 +50,13 @@ void OnPaint::updateState(const UIState &s)
 
     m_param.batteryTemp = s.scene.deviceState.getBatteryTempCDEPRECATED();
 
-    auto radar_state = (*s.scene.sm)["radarState"].getRadarState();  // radar
+    auto radar_state = (*s.sm)["radarState"].getRadarState();  // radar
     m_param.lead_radar = radar_state.getLeadOne();
 
     m_param.angleSteers = s.scene.car_state.getSteeringAngleDeg();
     m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();      
+    m_param.car_state = s.scene.car_state;
+
 
     if( memcmp( &m_param, &m_old, sizeof(m_param)) )
     {
@@ -513,8 +515,8 @@ QString OnPaint::get_tpms_text(float tpms)
 void OnPaint::bb_draw_tpms(QPainter &p, int viz_tpms_x, int viz_tpms_y )
 {
     //const UIScene *scene = &s->scene;
-    auto car_state = (*state->sm)["carState"].getCarState();
-    auto tpms = car_state.getTpms();
+    //auto car_state = (*state->sm)["carState"].getCarState();
+    auto tpms = m_param.car_state.getTpms();
 
     const float fl = tpms.getFl();
     const float fr = tpms.getFr();
