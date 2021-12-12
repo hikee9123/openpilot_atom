@@ -795,7 +795,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
 
 void CarSelectCombo::refresh() 
 {
-   int nIdx = combobox.currentIndex();
+  // int nIdx = combobox.currentIndex();
   //label.setText( QString::number(nIdx) );
 }
 
@@ -862,8 +862,8 @@ CarSelectBtn::CarSelectBtn( CarSelectCombo *p) : AbstractControl("Car Model", "�
 
 void CarSelectBtn::refresh() 
 {
-   int nIdx = m_pCarSelectMenu->combobox.currentIndex();
-  m_pCarSelectMenu->label.setText( QString::number(nIdx) );
+  // int nIdx = m_pCarSelectMenu->combobox.currentIndex();
+ // m_pCarSelectMenu->label.setText( QString::number(nIdx) );
 
   btnminus.setText("－");
   btnplus.setText("＋");
