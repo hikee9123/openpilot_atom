@@ -745,7 +745,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     border-radius: 5;
     padding: 1px 0px 1px 5px; 
     width: 100px;
-    QComboBox { max-width: 1000px; min-height: 50px;}
+    QComboBox { max-width: 900px; min-height: 50px;}
   )");
 
 
