@@ -754,16 +754,8 @@ void OnPaint::ui_draw_navi( QPainter &p )
 
 void OnPaint::ui_draw_debug1( QPainter &p ) 
 {
-/*
-  nvgFontSize(s->vg, 38);
-  nvgTextAlign(s->vg, NVG_ALIGN_LEFT | NVG_ALIGN_BASELINE);
-  
-  const Rect rect = {bdr_s, 930, 1600, 1010};
-  ui_fill_rect(s->vg, rect, COLOR_BLACK_ALPHA(100), 30.);  
-  nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
-*/
   QString text1 = "QString::fromStdString(scene->alert.alertTextMsg1)";
-  QString text2 = QString::fromStdString(scene->alert.alertTextMsg2);
+  QString text2 = "QString::fromStdString(scene->alert.alertTextMsg2)";
   QString text3 = QString::fromStdString(scene->alert.alertTextMsg3);
 
 
@@ -775,11 +767,7 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   //p.setFont( QFont("Open Sans", 8, QFont::Bold));
    QTextOption  textOpt =  QTextOption(Qt::AlignVCenter|Qt::AlignLeft);
 
- // QFont f(family);
- // f.setPixelSize(size);
- // f.setStyleName(style);
- // p.setFont(f);
-  p.drawText( QRect(0, 30, width(), 15), text1, textOpt );
+  p.drawText( QRect(0, 0, width(), 15), text1, textOpt );
   p.drawText( QRect(0, 970, width(), 15), text2, textOpt );
   p.drawText( QRect(0, 1010, width(), 15), text3, textOpt );
 }
