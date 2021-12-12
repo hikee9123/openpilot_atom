@@ -48,6 +48,7 @@ void OnPaint::updateState(const UIState &s)
   if (dt < 10)  return;
   prev_draw_t = cur_draw_t;
 
+/*
     auto gps_ext = s.scene.gpsLocationExternal;
     m_param.gpsAccuracyUblox = gps_ext.getAccuracy();
     m_param.altitudeUblox = gps_ext.getAltitude(); 
@@ -65,7 +66,7 @@ void OnPaint::updateState(const UIState &s)
     m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();      
     m_param.car_state = s.scene.car_state;
 
-
+*/
 
 
     if( memcmp( &m_param, &m_old, sizeof(m_param)) )
@@ -117,8 +118,9 @@ float OnPaint::interp( float xv, float xp[], float fp[], int N)
 void OnPaint::paintEvent(QPaintEvent *event) 
 {
   QPainter p(this);
-  p.setRenderHint(QPainter::Antialiasing);
+  //p.setRenderHint(QPainter::Antialiasing);
 
+  printf( "OnPaint::paintEvent" );
 
   //bb_ui_draw_UI( p );
   ui_main_navi( p );
