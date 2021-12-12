@@ -127,7 +127,7 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
   }
   else
   {
-    real_rect.movTo({x, y - real_rect.height() / 2});
+    real_rect.moveCenter({x, y - real_rect.height() / 2});
   }
 
 
