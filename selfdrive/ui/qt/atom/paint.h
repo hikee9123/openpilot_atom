@@ -40,6 +40,11 @@ private:
     float gpsAccuracyUblox;
     float bearingUblox;
     float  batteryTemp;
+
+    auto lead_radar;
+
+    float  angleSteers;
+    float  angleSteersDes;
   } m_param, m_old;
   
 

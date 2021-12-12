@@ -50,6 +50,11 @@ void OnPaint::updateState(const UIState &s)
 
     m_param.batteryTemp = s.scene.deviceState.getBatteryTempCDEPRECATED();
 
+    auto radar_state = (*s.scene.sm)["radarState"].getRadarState();  // radar
+    m_param.lead_radar = radar_state.getLeadOne();
+
+    m_param.angleSteers = s.scene.car_state.getSteeringAngleDeg();
+    m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();      
 
     if( memcmp( &m_param, &m_old, sizeof(m_param)) )
     {
@@ -100,10 +105,6 @@ void OnPaint::paintEvent(QPaintEvent *event)
   QPainter p(this);
   p.setRenderHint(QPainter::Antialiasing);
 
-  if( invalidate ) 
-  {
-
-  }
 
   bb_ui_draw_UI( p );
   ui_main_navi( p );
@@ -265,16 +266,15 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
   if( true )
   {
     QColor val_color = QColor(255, 255, 255, 200);
-    float  batteryTemp = scene->deviceState.getBatteryTempCDEPRECATED();
 
-    if(batteryTemp > 40) {
+    if(m_param.batteryTemp > 40) {
       val_color = QColor(255, 188, 3, 200);
     }
-    if(batteryTemp > 50) {
+    if(m_param.batteryTemp > 50) {
       val_color = QColor(255, 0, 0, 200);
     }
     // temp is alway in C * 1000
-    val_str.sprintf("%.1f", batteryTemp );
+    val_str.sprintf("%.1f", m_param.batteryTemp );
     uom_str = "";        
     bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "BAT TEMP",
         bb_rx, bb_ry, bb_uom_dx,
@@ -317,13 +317,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
   bb_h += 20;
   m_param.bbh_right = bb_h;
 
-  /*
-  QRect rc( bb_x, bb_y, bb_w, bb_h);
-  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
-  p.setBrush(QColor(0, 0, 0, 100));
-  p.drawRoundedRect(rc, 20, 20);
-  p.setPen(Qt::NoPen);
-  */
+
 }
 
 
@@ -340,8 +334,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
 
 
-  auto radar_state = (*state->sm)["radarState"].getRadarState();  // radar
-  auto lead_radar = radar_state.getLeadOne();
+
 
 
   if( m_param.bbh_left > 5)
@@ -363,10 +356,10 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   {
     QColor val_color = QColor(255, 255, 255, 200);
 
-    if ( lead_radar.getStatus() ) {
+    if ( m_param.lead_radar.getStatus() ) {
       //show RED if less than 5 meters
       //show orange if less than 15 meters
-      float d_rel2 = lead_radar.getDRel();
+      float d_rel2 = m_param.lead_radar.getDRel();
       if((int)(d_rel2) < 15) {
         val_color = QColor(255, 188, 3, 200);
       }
@@ -402,8 +395,8 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   if( true )
   {
     QColor val_color = QColor(255, 255, 255, 200);
-    if ( lead_radar.getStatus() ) {
-      float v_rel = lead_radar.getVRel();  
+    if ( m_param.lead_radar.getStatus() ) {
+      float v_rel = m_param.lead_radar.getVRel();  
       //show Orange if negative speed (approaching)
       //show Orange if negative speed faster than 5mph (approaching fast)
       if((int)(v_rel) < 0) {
@@ -436,19 +429,19 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   //add  steering angle
   if( true )
   {
-    float angleSteers = scene->car_state.getSteeringAngleDeg();
+    //float angleSteers = scene->car_state.getSteeringAngleDeg();
 
     QColor val_color = QColor(0, 255, 0, 200);
       //show Orange if more than 30 degrees
       //show red if  more than 50 degrees
-      if(((int)(angleSteers) < -30) || ((int)(angleSteers) > 30)) {
+      if(((int)(m_param.angleSteers) < -30) || ((int)(m_param.angleSteers) > 30)) {
         val_color = QColor(255, 175, 3, 200);
       }
-      if(((int)(angleSteers) < -55) || ((int)(angleSteers) > 55)) {
+      if(((int)(m_param.angleSteers) < -55) || ((int)(m_param.angleSteers) > 55)) {
         val_color = QColor(255, 0, 0, 200);
       }
       // steering is in degrees
-      val_str.sprintf("%.1f",angleSteers);
+      val_str.sprintf("%.1f",m_param.angleSteers);
       uom_str = "";
     bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "REAL STEER",
         bb_rx, bb_ry, bb_uom_dx,
@@ -460,22 +453,22 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   //add  desired steering angle
   if( true )
   {
-    float angleSteersDes = scene->controls_state.getSteeringAngleDesiredDegDEPRECATED();  
+   // float angleSteersDes = scene->controls_state.getSteeringAngleDesiredDegDEPRECATED();  
 
     QColor val_color = QColor(255, 255, 255, 200);
     if( scene->controls_state.getEnabled() ) {
       //show Orange if more than 6 degrees
       //show red if  more than 12 degrees
-      if(((int)(angleSteersDes) < -30) || ((int)(angleSteersDes) > 30)) 
+      if(((int)(m_param.angleSteersDes) < -30) || ((int)(m_param.angleSteersDes) > 30)) 
       {
         val_color = QColor(255, 255, 255, 200);
       }
-      if( ((int)(angleSteersDes) < -50) || ((int)(angleSteersDes) > 50) ) 
+      if( ((int)(m_param.angleSteersDes) < -50) || ((int)(m_param.angleSteersDes) > 50) ) 
       {
         val_color = QColor(255, 255, 255, 200);
       }
       // steering is in degrees
-      val_str.sprintf("%.1f",angleSteersDes);
+      val_str.sprintf("%.1f",m_param.angleSteersDes);
     } else {
       val_str = "-";
     }
@@ -493,13 +486,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   bb_h += 20;
   m_param.bbh_left = bb_h;
 
-/*
-  QRect rc( bb_x, bb_y, bb_w, bb_h);
-  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
-  p.setBrush(QColor(0, 0, 0, 100));
-  p.drawRoundedRect(rc, 20, 20);
-  p.setPen(Qt::NoPen);  
-*/
+
 }
 
 
