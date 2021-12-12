@@ -222,8 +222,10 @@ CUserPanel::CUserPanel(QWidget* parent) : QFrame(parent)
   layout()->addWidget(horizontal_line());
 
 
+  QWidget *pCarSelectmenu = new CarSelectCombo();
+  layout()->addWidget( pCarSelectmenu );
+  layout()->addWidget( new CarSelectBtn(pCarSelectmenu) );
   
-  layout()->addWidget( new CarSelectCombo() );
 }
 
 void CUserPanel::showEvent(QShowEvent *event) 
@@ -743,23 +745,6 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     width: 100px;
   )");
 
-  btnminus.setStyleSheet(R"(
-    padding: 0;
-    border-radius: 50px;
-    font-size: 35px;
-    font-weight: 500;
-    color: #E4E4E4;
-    background-color: #393939;
-  )");
-
-  btnplus.setStyleSheet(R"(
-    padding: 0;
-    border-radius: 50px;
-    font-size: 35px;
-    font-weight: 500;
-    color: #E4E4E4;
-    background-color: #393939;
-  )");
 
 
    combobox.addItem("HYUNDAI ELANTRA LIMITED 2017");
@@ -794,39 +779,10 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
 
 
   hlayout->addWidget(&combobox);
-
   label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   label.setStyleSheet("color: #e0e879");
   hlayout->addWidget(&label);
 
-
-  btnminus.setFixedSize(150, 100);
-  btnplus.setFixedSize(150, 100);
-  hlayout->addWidget(&btnminus);
-  hlayout->addWidget(&btnplus);
-
-
-
-  QObject::connect(&btnminus, &QPushButton::released, [=]() 
-  {
-    int nIdx = combobox.currentIndex() - 1;
-    if( nIdx < 0 ) nIdx = 0;
-    combobox.setCurrentIndex( nIdx);
-    refresh();
-  });
-  
-  QObject::connect(&btnplus, &QPushButton::released, [=]() 
-  {
-    int nMax = combobox.count();
-    int nIdx = combobox.currentIndex() + 1;
-
-    if( nIdx >=  nMax )
-      nIdx = nMax;
-
-    combobox.setCurrentIndex( nIdx);
-
-    refresh();
-  });
 
   QObject::connect(&combobox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](int index)
   {
@@ -844,6 +800,73 @@ void CarSelectCombo::refresh()
 {
    int nIdx = combobox.currentIndex();
   label.setText( QString::number(nIdx) );
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+CarSelectBtn::CarSelectBtn( CarSelectCombo *p) : AbstractControl("Car Model", "등록된 자동차 모델", "") 
+{
+  m_pCarSelectMenu  = p;
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+
+
+  QObject::connect(&btnminus, &QPushButton::released, [=]() 
+  {
+    int nIdx = m_pCarSelectMenu->combobox.currentIndex() - 1;
+    if( nIdx < 0 ) nIdx = 0;
+    m_pCarSelectMenu->combobox.setCurrentIndex( nIdx);
+    m_pCarSelectMenu->refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::released, [=]() 
+  {
+    int nMax = m_pCarSelectMenu->combobox.count();
+    int nIdx = m_pCarSelectMenu->combobox.currentIndex() + 1;
+
+    if( nIdx >=  nMax )
+      nIdx = nMax;
+
+    m_pCarSelectMenu->combobox.setCurrentIndex( nIdx);
+
+    m_pCarSelectMenu->refresh();
+  });
+
+
+  refresh();
+}
+
+void CarSelectBtn::refresh() 
+{
+   int nIdx = m_pCarSelectMenu->combobox.currentIndex();
+  m_pCarSelectMenu->label.setText( QString::number(nIdx) );
 
   btnminus.setText("－");
   btnplus.setText("＋");

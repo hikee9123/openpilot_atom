@@ -245,13 +245,29 @@ public:
   CarSelectCombo();
 
 private:
-  QPushButton btnplus;
-  QPushButton btnminus;
   QLabel label;
 
   QComboBox  combobox;
 
   void refresh();
 
+};
+
+class CarSelectBtn : public AbstractControl 
+{
+  Q_OBJECT
+
+public:
+  CarSelectBtn( CarSelectCombo *pCarSelectmenu );
+
+
+  CarSelectCombo *m_pCarSelectMenu;
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+
+  void refresh();
 };
 
