@@ -45,14 +45,15 @@ def manager_init():
     ("OpkrLiveSteerRatio", "0"),
     ("OpkrTurnSteeringDisable", "0"),
     ("PutPrebuiltOn", "0"),
-    # {"OpkrUIBrightnessOff", "10" },
     ("OpkrAutoScreenOff", "0"),
     ("OpkrAutoFocus", "0"),
     ("OpkrUIBrightness", "0"),
     ("OpkrUIVolumeBoost", "0"),    
     ("OpkrPandaFirmwareCk", "0"),
     ("OpkrRunNaviOnBoot", "0"),
-    ("OpkrSSHLegacy", "0"), 
+    ("OpkrSSHLegacy", "0"),
+    ("OpkrCarModel", "HYUNDAI GRANDEUR HYBRID 2019"), 
+    
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

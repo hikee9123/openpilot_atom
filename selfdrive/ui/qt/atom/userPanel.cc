@@ -213,7 +213,7 @@ CUserPanel::CUserPanel(QWidget* parent) : QFrame(parent)
 
   for (auto btn : {car_interfaces, build_exe, finger_exe, android_exe, apk_exe, mixplorer_exe, tmapopen_exe, tmapclose_exe, softkey_exe}) {
     if (btn) {
-      layout()->addWidget(horizontal_line());
+     // layout()->addWidget(horizontal_line());
       connect(parent, SIGNAL(offroadTransition(bool)), btn, SLOT(setEnabled(bool)));
       layout()->addWidget(btn);
     }
@@ -731,7 +731,6 @@ GitHash::GitHash() : AbstractControl("커밋(로컬/리모트)", "", "") {
 CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 강제로 인식시키는 메뉴입니다.", "") 
 {
   combobox.setStyleSheet(R"(
-    font-size: 35px;
     subcontrol-origin: padding;
     subcontrol-position: top right;
     selection-background-color: #111;
@@ -739,9 +738,9 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     color: white;
     background-color: #393939;
     border-style: solid;
-    border: 1px solid #1e1e1e;
-    border-radius: 5;
-    padding: 1px 0px 1px 5px; 
+    border: 0px solid #1e1e1e;
+    border-radius: 0;
+    width: 100px;
   )");
 
   btnminus.setStyleSheet(R"(
@@ -761,6 +760,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     color: #E4E4E4;
     background-color: #393939;
   )");
+
 
    combobox.addItem("HYUNDAI ELANTRA LIMITED 2017");
     combobox.addItem("HYUNDAI I30 N LINE 2019");
@@ -792,8 +792,6 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     combobox.addItem("GENESIS G80 2017");
     combobox.addItem("GENESIS G90 2017");
 
-  //QAbstractItemView *qv = combobox.view();
-  //QScrollBar *scrollbar = qv->verticalScrollBar();    
 
   hlayout->addWidget(&combobox);
 
