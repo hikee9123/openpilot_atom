@@ -19,7 +19,7 @@ class OnroadHud : public QWidget {
   Q_PROPERTY(bool engageable MEMBER engageable NOTIFY valueChanged);
   Q_PROPERTY(bool dmActive MEMBER dmActive NOTIFY valueChanged);
   Q_PROPERTY(bool hideDM MEMBER hideDM NOTIFY valueChanged);
-  Q_PROPERTY(int invalidate MEMBER invalidate NOTIFY valueChanged);
+
 
 public:
   explicit OnroadHud(QWidget *parent);
