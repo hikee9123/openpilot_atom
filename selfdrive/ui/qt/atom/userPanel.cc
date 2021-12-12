@@ -795,8 +795,10 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
 
 void CarSelectCombo::refresh() 
 {
-  // int nIdx = combobox.currentIndex();
-  //label.setText( QString::number(nIdx) );
+   int nIdx = combobox.currentIndex();
+
+  QString values = QString::number(nIdx);
+  Params().put("OpkrCarModel", values.toStdString());
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
