@@ -35,6 +35,13 @@ private:
   float gpsAccuracyUblox =0;
   float bearingUblox = 0;
   int  m_test_cnt;
+ 
+  struct _PARAM_
+  {
+    int  m_bb_h_left;
+    int  m_bb_h_right;
+  } param;
+  
 
 private:
   //const int radius = 192;
