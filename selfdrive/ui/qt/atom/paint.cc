@@ -240,8 +240,8 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
     QColor val_color = QColor(255, 255, 255, 200);
 
-     val_color = get_color(  m_param.cpuTemp, 92, 80 );
-     lab_color = get_color(  m_param.cpuPerc, 70, 60 );
+     val_color = get_color(  (int)m_param.cpuTemp, 92, 80 );
+     lab_color = get_color(  (int)m_param.cpuPerc, 70, 60 );
 
 
        // temp is alway in C * 10
@@ -263,8 +263,8 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
     float  memTemp = scene->deviceState.getMemoryTempC();
     float gpuTemp = maxGpuTemp[0];
     
-    val_color = get_color(  gpuTemp, 92, 80 );
-    lab_color = get_color(  memTemp, 92, 80 );
+    val_color = get_color(  (int)gpuTemp, 92, 80 );
+    lab_color = get_color(  (int)memTemp, 92, 80 );
 
        // temp is alway in C * 10
       val_str.sprintf("%.1f", gpuTemp );
@@ -283,7 +283,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
   {
     QColor val_color = QColor(255, 255, 255, 200);
 
-    val_color = get_color(  m_param.batteryTemp, 50, 40 );
+    val_color = get_color( (int) m_param.batteryTemp, 50, 40 );
 
     // temp is alway in C * 1000
     val_str.sprintf("%.1f", m_param.batteryTemp );
@@ -302,7 +302,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
     QColor val_color = QColor(255, 255, 255, 200);
     //show red/orange if gps accuracy is low
-     val_color = get_color( m_param.gpsAccuracyUblox, 5, 2 );
+     val_color = get_color( (int)m_param.gpsAccuracyUblox, 5, 2 );
 
     // gps accuracy is always in meters
     if(m_param.gpsAccuracyUblox > 99 || m_param.gpsAccuracyUblox == 0) {
