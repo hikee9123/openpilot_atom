@@ -46,6 +46,7 @@ void OnPaint::updateState(const UIState &s)
   double cur_draw_t = millis_since_boot();
   double dt = cur_draw_t - prev_draw_t;
   if (dt < 10)  return;
+  prev_draw_t = cur_draw_t;
 
     auto gps_ext = s.scene.gpsLocationExternal;
     m_param.gpsAccuracyUblox = gps_ext.getAccuracy();
@@ -366,6 +367,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
       //show RED if less than 5 meters
       //show orange if less than 15 meters
       float d_rel2 = m_param.lead_radar.getDRel();
+      
       if((int)(d_rel2) < 15) {
         val_color = QColor(255, 188, 3, 200);
       }
