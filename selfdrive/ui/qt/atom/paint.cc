@@ -117,11 +117,11 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
   {
      real_rect.moveCenter({x, y - real_rect.height() / 2});
   }
-  else  if( nAlign ==  Qt::AlignLeft )
+  else  if( nAlign ==  Qt::AlignRight  )
   {
     real_rect.moveLeft( x );
   }
-  else  if( nAlign ==  Qt::AlignRight )
+  else  if( nAlign ==  Qt::AlignLeft  )
   {
     real_rect.moveRight( x );
   }
