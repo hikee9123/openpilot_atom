@@ -267,16 +267,12 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   int  brakePress = m_nBrakeStatus & 0x01;
   int  brakeLights = m_nBrakeStatus & 0x02;
 
-  m_gasVal += 0.1;
-
-  if( m_gasVal > 2 )
-    m_gasVal = 0;
 
   if( brakePress  ) val_color = QColor(255, 0, 0, 255);
   else if( brakeLights ) val_color = QColor(201, 34, 49, 100);
   else if( m_gasVal > 0 ) 
   {
-    int  gasVal = m_gasVal * 100 + 100;
+    int  gasVal = m_gasVal * 200 + 100;
     if( gasVal > 255 ) gasVal = 255;
     val_color = QColor(255, 255, 0, gasVal);
   }
