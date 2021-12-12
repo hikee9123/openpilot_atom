@@ -16,12 +16,12 @@ OnPaint::OnPaint(QWidget *parent) : QWidget(parent)
   state = &QUIState::ui_state;
   scene = &QUIState::ui_state.scene;
 
-
-  img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_compass= QPixmap("../assets/addon/Image/img_compass.png").scaled(img_size_compass, img_size_compass, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_direction= QPixmap("../assets/addon/Image/img_direction.png").scaled(img_size_compass, img_size_compass, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(110, 110, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  img_tire_pressure= QPixmap("../assets/addon/Image/img_tire_pressure.png").scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
+
+  img_traf_turn= QPixmap("../assets/img_trafficSign_turn.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_30= QPixmap("../assets/addon/navigation/img_30_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_40= QPixmap("../assets/addon/navigation/img_40_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   img_speed_50= QPixmap("../assets/addon/navigation/img_50_speedahead.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -51,7 +51,7 @@ void OnPaint::updateState(const UIState &s)
     m_param.batteryTemp = s.scene.deviceState.getBatteryTempCDEPRECATED();
 
 
-    if( memcmp( &m_param, &m_old, sizeof(m_param) )
+    if( memcmp( &m_param, &m_old, sizeof(m_param)) )
     {
        m_old = m_param;
        invalidate++;
