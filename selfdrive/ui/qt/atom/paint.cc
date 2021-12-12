@@ -49,7 +49,7 @@ void OnPaint::updateState(const UIState &s)
     m_param.bearingUblox = gps_ext.getBearingDeg();
 
 
-    if( m_param != m_old )
+    if( memcmp( &m_param, &m_old, sizeof(m_param) )
     {
        m_old = m_param;
        invalidate++;
@@ -191,11 +191,11 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
   if ( m_param.bbh_right > 5 )
   {
-  QRect rc( bb_x, bb_y, bb_w, m_param.bbh_right);
-  p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3)); 
-  p.setBrush(QColor(0, 0, 0, 100));
-  p.drawRoundedRect(rc, 20, 20); 
-  p.setPen(Qt::NoPen);
+    QRect rc( bb_x, bb_y, bb_w, m_param.bbh_right);
+    p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3)); 
+    p.setBrush(QColor(0, 0, 0, 100));
+    p.drawRoundedRect(rc, 20, 20); 
+    p.setPen(Qt::NoPen);
   }
 
   QString val_str;
@@ -338,6 +338,17 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   auto lead_radar = radar_state.getLeadOne();
 
 
+  if( m_param.bbh_left > 5)
+  {
+    QRect rc( bb_x, bb_y, bb_w, m_param.bbh_left);
+    p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
+    p.setBrush(QColor(0, 0, 0, 100));
+    p.drawRoundedRect(rc, 20, 20);
+    p.setPen(Qt::NoPen);  
+  }
+
+
+
   QString val_str;
   QString uom_str;
 
@@ -476,11 +487,13 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
   bb_h += 20;
   m_param.bbh_left = bb_h;
 
+/*
   QRect rc( bb_x, bb_y, bb_w, bb_h);
   p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
   p.setBrush(QColor(0, 0, 0, 100));
   p.drawRoundedRect(rc, 20, 20);
   p.setPen(Qt::NoPen);  
+*/
 }
 
 
