@@ -768,12 +768,20 @@ void OnPaint::ui_draw_debug1( QPainter &p )
 
 
   configFont( p, "Open Sans",  30, "SemiBold");
-  drawText( p, 0, 30, text1,QColor(255,255,255,255), Qt::AlignLeft  );
-  drawText( p, 0, 970, text2,QColor(255,255,255,255), Qt::AlignLeft  );
-  drawText( p, 0, 1010, text3,QColor(255,255,255,255), Qt::AlignLeft  );
+  //drawText( p, 0, 30, text1,QColor(255,255,255,255), Qt::AlignLeft  );
+  //drawText( p, 0, 970, text2,QColor(255,255,255,255), Qt::AlignLeft  );
+  //drawText( p, 0, 1010, text3,QColor(255,255,255,255), Qt::AlignLeft  );
 
-  // p.drawText( 0, 30, text1 );
+  //p.setFont( QFont("Open Sans", 8, QFont::Bold));
+   QTextOption  textOpt =  QTextOption(Qt::AlignVCenter|Qt::AlignLeft);
 
+ // QFont f(family);
+ // f.setPixelSize(size);
+ // f.setStyleName(style);
+ // p.setFont(f);
+  p.drawText( QRect(0, 30, width(), 15), text1, textOpt );
+  p.drawText( QRect(0, 970, width(), 15), text2, textOpt );
+  p.drawText( QRect(0, 1010, width(), 15), text3, textOpt );
 }
 
 
