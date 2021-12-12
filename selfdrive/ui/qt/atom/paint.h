@@ -41,7 +41,7 @@ private:
     float bearingUblox;
     float  batteryTemp;
 
-    auto lead_radar;
+    cereal::RadarState::LeadData::Reader lead_radar;
 
     float  angleSteers;
     float  angleSteersDes;

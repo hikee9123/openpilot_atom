@@ -277,7 +277,7 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   p.drawText(real_rect.x(), real_rect.bottom(), speed);
 
 
-  configFont(p, "Open Sans", 45, "Regular");
+  configFont(p, "Open Sans", 50, "Regular");
   drawText(p, x, y+70, speedUnit, 200);
 }
 
