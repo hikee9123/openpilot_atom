@@ -45,10 +45,10 @@ void OnPaint::updateState(const UIState &s)
 {
   double cur_draw_t = millis_since_boot();
   double dt = cur_draw_t - prev_draw_t;
-  if (dt < 10)  return;
+  if (dt < 100)  return;
   prev_draw_t = cur_draw_t;
 
-/*
+
     auto gps_ext = s.scene.gpsLocationExternal;
     m_param.gpsAccuracyUblox = gps_ext.getAccuracy();
     m_param.altitudeUblox = gps_ext.getAltitude(); 
@@ -59,13 +59,13 @@ void OnPaint::updateState(const UIState &s)
     auto  maxCpuTemp = s.scene.deviceState.getCpuTempC();    
     m_param.cpuTemp = maxCpuTemp[0];
 
+    m_param.angleSteers = s.scene.car_state.getSteeringAngleDeg();
+    m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();
+
+/*
+    m_param.car_state = s.scene.car_state;
     auto radar_state = (*s.sm)["radarState"].getRadarState();  // radar
     m_param.lead_radar = radar_state.getLeadOne();
-
-    m_param.angleSteers = s.scene.car_state.getSteeringAngleDeg();
-    m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();      
-    m_param.car_state = s.scene.car_state;
-
 */
 
 
