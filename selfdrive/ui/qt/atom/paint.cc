@@ -112,7 +112,24 @@ void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qC
   QFontMetrics fm(p.font());
   QRect init_rect = fm.boundingRect(text);
   QRect real_rect = fm.boundingRect(init_rect, 0, text);
-  real_rect.moveCenter({x, y - real_rect.height() / 2});
+
+  if( nAlign == Qt::AlignCenter ) // Qt::AlignLeft )
+  {
+     real_rect.moveCenter({x, y - real_rect.height() / 2});
+  }
+  else  if( nAlign ==  Qt::AlignLeft )
+  {
+    real_rect.moveLeft( x );
+  }
+  else  if( nAlign ==  Qt::AlignRight )
+  {
+    real_rect.moveRight( x );
+  }
+  else
+  {
+    real_rect.movTo({x, y - real_rect.height() / 2});
+  }
+
 
   p.setPen( qColor ); //QColor(0xff, 0xff, 0xff, alpha));
   //p.drawText(real_rect.x(), real_rect.bottom(), text);
