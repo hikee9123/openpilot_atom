@@ -267,7 +267,6 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
   int  brakePress = m_nBrakeStatus & 0x01;
   int  brakeLights = m_nBrakeStatus & 0x02;
 
-  float gasVal = s.scene.car_state.getGas();
 
 
   if( brakePress  ) val_color = QColor(255, 0, 0, 255);
