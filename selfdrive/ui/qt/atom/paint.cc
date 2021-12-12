@@ -73,6 +73,8 @@ void OnPaint::updateState(const UIState &s)
        m_old = m_param;
        invalidate++;
     }
+    if( invalidate > 10 )
+       invalidate = 0;
     setProperty("invalidate", invalidate );
 }
 
@@ -197,7 +199,7 @@ int OnPaint::bb_ui_draw_measure(QPainter &p,  const QString &bb_value, const QSt
 
 QColor OnPaint::get_color( int nVal, int nRed, int nYellow ) 
 {
-  QColor  lab_color  QColor(255, 255, 255, 255);;
+  QColor  lab_color  QColor(255, 255, 255, 255);
 
       if(nVal > nRed) {
         lab_color = QColor(255, 0, 0, 200);
@@ -286,7 +288,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
 
     // temp is alway in C * 1000
     val_str.sprintf("%.1f", m_param.batteryTemp );
-    uom_str = "";        
+    uom_str.sprintf("%d", invalidate );        
     bb_h +=bb_ui_draw_measure(p,  val_str, uom_str, "BAT TEMP",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
