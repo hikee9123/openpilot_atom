@@ -38,9 +38,9 @@ private:
  
   struct _PARAM_
   {
-    int  m_bb_h_left;
-    int  m_bb_h_right;
-  } param;
+    int  bbh_left;
+    int  bbh_right;
+  } m_param;
   
 
 private:
