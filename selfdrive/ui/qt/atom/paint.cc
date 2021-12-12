@@ -84,8 +84,8 @@ void OnPaint::updateState(const UIState &s)
        m_old = m_param;
        invalidate++;
     }
-    if( invalidate > 10 )
-       invalidate = 0;
+    if( invalidate > 99 )
+       invalidate = 1;
     setProperty("invalidate", invalidate );
 }
 
@@ -235,7 +235,7 @@ void OnPaint::bb_ui_draw_measures_right( QPainter &p, int bb_x, int bb_y, int bb
   int uom_fontSize = 15;
   int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
 
-  if ( m_param.bbh_right > 5 )
+  if (  invalidate && (m_param.bbh_right > 5) )
   {
     QRect rc( bb_x, bb_y, bb_w, m_param.bbh_right);
     p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3)); 
@@ -357,7 +357,7 @@ void OnPaint::bb_ui_draw_measures_left(QPainter &p, int bb_x, int bb_y, int bb_w
 
 
 
-  if( m_param.bbh_left > 5)
+  if( invalidate && (m_param.bbh_left > 5) )
   {
     QRect rc( bb_x, bb_y, bb_w, m_param.bbh_left);
     p.setPen(QPen(QColor(0xff, 0xff, 0xff, 100), 3));
