@@ -48,6 +48,8 @@ void OnPaint::updateState(const UIState &s)
     m_param.altitudeUblox = gps_ext.getAltitude(); 
     m_param.bearingUblox = gps_ext.getBearingDeg();
 
+    m_param.batteryTemp = s.scene.deviceState.getBatteryTempCDEPRECATED();
+
 
     if( memcmp( &m_param, &m_old, sizeof(m_param) )
     {
@@ -98,9 +100,13 @@ void OnPaint::paintEvent(QPaintEvent *event)
   QPainter p(this);
   p.setRenderHint(QPainter::Antialiasing);
 
+  if( invalidate ) 
+  {
 
-    bb_ui_draw_UI( p );
-    ui_main_navi( p );
+  }
+
+  bb_ui_draw_UI( p );
+  ui_main_navi( p );
 }
 // 
 void OnPaint::drawText(QPainter &p, int x, int y, const QString &text, QColor qColor, int nAlign ) 

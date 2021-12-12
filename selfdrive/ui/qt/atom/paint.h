@@ -38,7 +38,8 @@ private:
     int   bbh_right;
     float altitudeUblox;
     float gpsAccuracyUblox;
-    float bearingUblox;    
+    float bearingUblox;
+    float  batteryTemp;
   } m_param, m_old;
   
 
