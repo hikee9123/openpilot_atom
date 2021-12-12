@@ -56,17 +56,25 @@ void OnPaint::updateState(const UIState &s)
     m_param.altitudeUblox = gps_ext.getAltitude(); 
     m_param.bearingUblox = gps_ext.getBearingDeg();
 
-    m_param.batteryTemp = s.scene.deviceState.getBatteryTempCDEPRECATED();
-    m_param.cpuPerc = s.scene.deviceState.getCpuUsagePercent()[0];
-    auto  maxCpuTemp = s.scene.deviceState.getCpuTempC();    
-    m_param.cpuTemp = 0;// maxCpuTemp[0];
+
+   if (sm.updated("deviceState")) 
+   {
+      auto deviceState = sm["deviceState"].getDeviceState();
+
+     m_param.batteryTemp = deviceState.getBatteryTempCDEPRECATED();
+     m_param.cpuPerc = deviceState.getCpuUsagePercent()[0];
+
+     auto  maxCpuTemp = deviceState.getCpuTempC();
+     m_param.cpuTemp = maxCpuTemp[0];      
+   }
+
 
     m_param.angleSteers = s.scene.car_state.getSteeringAngleDeg();
     m_param.angleSteersDes = s.scene.controls_state.getSteeringAngleDesiredDegDEPRECATED();
 
 
     m_param.car_state = s.scene.car_state;
-    auto radar_state = (sm["radarState"].getRadarState();  // radar
+    auto radar_state = sm["radarState"].getRadarState();  // radar
     m_param.lead_radar = radar_state.getLeadOne();
 
 
