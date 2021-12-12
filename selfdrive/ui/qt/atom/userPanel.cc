@@ -745,7 +745,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     border-radius: 5;
     padding: 1px 0px 1px 5px; 
     width: 100px;
-    QComboBox { max-width: 1000px; min-height: 60px;}
+    QComboBox { max-width: 1000px; min-height: 50px;}
   )");
 
 
@@ -780,7 +780,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     combobox.addItem("GENESIS G80 2017");
     combobox.addItem("GENESIS G90 2017");
    // combobox.setFixedWidth(700);
-   // combobox.setFixedWidth(1200);
+    combobox.setFixedWidth(1000);
 
   hlayout->addWidget(&combobox);
 
