@@ -742,7 +742,7 @@ CarSelectCombo::CarSelectCombo() : AbstractControl("Car", "자동차 모델을 �
     border-style: solid;
     border: 0px solid #1e1e1e;
     border-radius: 0;
-    width: 100px;
+    width: 200px;
   )");
 
 
