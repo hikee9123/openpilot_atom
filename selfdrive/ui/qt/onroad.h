@@ -48,6 +48,7 @@ private:
 
 private:
   int  m_nBrakeStatus;
+  float m_gasVal;
 
 signals:
   void valueChanged();

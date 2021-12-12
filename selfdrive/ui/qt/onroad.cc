@@ -198,6 +198,7 @@ void OnroadHud::updateState(const UIState &s) {
   setProperty("status", s.status);
 
 
+  m_gasVal = s.scene.car_state.getGas();
   bool  brakePress = s.scene.car_state.getBrakePressed();
   bool  brakeLights = s.scene.car_state.getBrakeLightsDEPRECATED();
 
@@ -271,9 +272,9 @@ void OnroadHud::drawCurrentSpeed(QPainter &p, int x, int y)
 
   if( brakePress  ) val_color = QColor(255, 0, 0, 255);
   else if( brakeLights ) val_color = QColor(201, 34, 49, 100);
-  else if( gasVal > 0 ) 
+  else if( m_gasVal > 0 ) 
   {
-    int  gasVal * 10 + 50;
+    int  gasVal = m_gasVal * 10 + 50;
     if( gasVal > 255 ) gasVal = 255;
     val_color = QColor(200, 200, 0, gasVal);
   }
