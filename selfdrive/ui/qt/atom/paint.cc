@@ -767,8 +767,8 @@ void OnPaint::ui_draw_debug1( QPainter &p )
   configFont( p, "Open Sans",  30, "Regular");
 
   p.drawText( QRect(0, 0, width(), 30), text1, textOpt );
-  p.drawText( QRect(0, 970, width(), 30), text2, textOpt );
-  p.drawText( QRect(0, 1010, width(), 30), text3, textOpt );
+  p.drawText( QRect(0, 955, width(), 30), text2, textOpt );
+  p.drawText( QRect(0, 995, width(), 30), text3, textOpt );
 }
 
 
