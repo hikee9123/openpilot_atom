@@ -670,7 +670,7 @@ class Controls:
     steer_angle_without_offset = math.radians(CS.steeringAngleDeg - params.angleOffsetAverageDeg)
     curvature = -self.VM.calc_curvature(steer_angle_without_offset, CS.vEgo)
 
-    angle_steers_des = actuators.steeringAngleDeg
+    angle_steers_des = actuators.steeringAngleDeg - params.angleOffsetDeg
 
     # controlsState
     dat = messaging.new_message('controlsState')
