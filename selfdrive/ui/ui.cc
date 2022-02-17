@@ -266,7 +266,7 @@ void UIState::updateStatus() {
     }
     started_prev = scene.started;
     emit offroadTransition(!scene.started);
-  }
+  
   } else  {
      scene.end_to_end = scene.lateralPlan.getUseLaneLines();
   }
